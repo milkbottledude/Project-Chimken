@@ -1,6 +1,6 @@
 # Project-Chimken
 
-![](progress_pics\Sing_Soon_Lee_Chicken_Rice_Cropped_Banner.png)
+![banner here](progress_pics\Sing_Soon_Lee_Chicken_Rice_Cropped_Banner.png)
 
 - 🗪 Feel free to telegram me [@milkbottledude](https://t.me/milkbottledude) if you have any questions, or just want to chat :)
 
