@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chimken Payment</title>
+</head>
+<body>
+    <div> here we will provide the qr code for paynow, den also provide the 'input' where they can submit their ss of the shi, plus a submit button to submit their ss. </div>
+    <div> Once submitted, will bring them to another page, think ill name it 'confirmation.html'. First, it will be 'checking ss validity' or 'checking for payment'.</div>
+    <div> then once checked by YOLO or owner, will change to 'payment is successful! order has been sent through and will be 'completed shortly' OR 'in 5mins', see if owner want to implement smth liddat.</div>
+    <form method="POST" action="/payment">
+        <label for="paynow_ss">Enter your Paynow Screenshot:</label>
+        <input type="file" name="paynow_ss" id="paynow_ss" accept="image/*" required>
+        <button type="submit">Submit Screenshot</button>
+    </form>
+</body>
+</html>

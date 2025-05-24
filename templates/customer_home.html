@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chimken home</title>
+    <title>Chimken Home</title>
 </head>
 <body>
     <a> hello there </a>
+    <form method="POST" action="/checkout">
+        <label for="amount">Enter a number:</label>
+        <input type="number" name="user_input" id="amount" required>
+        <button type="submit">Checkout</button>
+    </form>
 </body>
 </html>
