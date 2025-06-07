@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chimken Home</title>
+</head>
+<body>
+    <a> hello there </a>
+    <form method="POST" action="/checkout">
+        <div>
+            <label for="steamed_chicken_rice_amt">Steamed Chicken Rice</label>
+            <input type="number" name="steamed_chicken_rice_amt" id="steamed_chicken_rice_amt" value="0" min="0" required>
+        </div>
+        <div>
+            <label for="whole_steamed_chicken_amt">Whole Steamed Chicken</label>
+            <input type="number" name="whole_steamed_chicken_amt" id="whole_steamed_chicken_amt" value="0" min="0" required>
+        </div>
+        <div>
+            <label for="half_steamed_chicken_amt">Half Steamed Chicken</label>
+            <input type="number" name="half_steamed_chicken_amt" id="half_steamed_chicken_amt" value="0" min="0" required>
+        </div>
+        <button type="submit">Checkout</button>
+    </form>
+</body>
+</html>

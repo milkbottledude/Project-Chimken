@@ -1,8 +1,11 @@
 import pandas as pd
 import numpy as np
 from flask import Flask, render_template, request
+from flask_socketio import SocketIO
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'not_the_actual_key'
+socketio = SocketIO(app)
 
 stall_phone_number = None
 
@@ -26,15 +29,26 @@ def home():
 @app.route('/checkout', methods=['GET', 'POST']) # Maybe add a msg as well to say 'u hvnt ordered shi', but not yet focus on basics first
 def checkout():
     if request.method == 'POST':
-        items_ordered = request.form.getlist('items')
-        print(items_ordered)
+        steamed_chicken_rice_ordered = int(request.form.get('steamed_chicken_rice_amt'))
+        whole_steamed_chicken_ordered = int(request.form.get('whole_steamed_chicken_amt'))
+        half_steamed_chicken_ordered = int(request.form.get('half_steamed_chicken_amt'))
+        item_amts_ordered = [steamed_chicken_rice_ordered, whole_steamed_chicken_ordered, half_steamed_chicken_ordered]
+        items = ['Steamed Chicken Rice', 'Whole Steamed Chicken', 'Half Steamed Chicken']
+        items_ordered = []
+        print(item_amts_ordered)
+        for x in range(len(item_amts_ordered)):
+            if item_amts_ordered[x] > 0:
+                items_ordered.append(items[x])
         price_list = []
-        total_cost = 0
+        print(items_ordered)
         for item in items_ordered:
-            item_price = item_prices[item]
+            item_base_price = item_prices[item]
+            index = items.index(item)
+            item_price = item_base_price * item_amts_ordered[index]
             price_list.append(item_price)
-            total_cost += item_price
-        return render_template('checkout.html', items_ordered = items_ordered, price_list = price_list, total_cost = total_cost)
+        total_cost = sum(price_list)
+        item_amts_ordered_filtered = [x for x in item_amts_ordered if x > 0]
+        return render_template('checkout.html', items_ordered = items_ordered, price_list = price_list, total_cost = total_cost, item_amts_ordered_filtered = item_amts_ordered_filtered)
     else:
         return render_template('customer_home.html')
 
@@ -42,9 +56,12 @@ def checkout():
 # here is where they scan the qr code and submit ss of paynow
 @app.route('/payment', methods=['POST'])
 def payment():
-    payment_amount = request.form.getlist('items')
-    return render_template('payment.html', payment_amount = payment_amount)
-    #STOPPPED HEREEE
+    total_cost = request.form.get('total_cost')
+    print(total_cost)
+    return render_template('payment.html', total_cost = total_cost)
+
+# this will use socket.io to handle the form and send data to the admin dashboard
+
 
 # this is where the YOLO will take out all the impt info and verify, as well as upload the data to a database
 @app.route('/confirmation', methods=['POST'])
@@ -60,5 +77,5 @@ def admin_home():
 
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    socketio.run(app)
