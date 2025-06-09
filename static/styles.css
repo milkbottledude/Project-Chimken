@@ -1,0 +1,66 @@
+body {
+    background-color: #efe8dd;
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Login CSS */
+
+#chimken_login_logo {
+    display: block;
+    margin: 5%;
+    width: 40%;
+}
+
+.login_buttons {
+    display: inline-block;
+    margin: 1%;
+    margin-left: 9%;
+    text-decoration: none;
+    color: #efe8dd;
+    padding: 0.5%;
+    padding-left: 1%;
+    padding-right: 1%;
+    background-color: #ff3131;
+    border-radius: 10px;
+    font-size: large;
+}
+
+.bottom_text_div {
+    margin-top: 224px;
+    margin-left: 12%;
+
+}
+
+.bottom_text {
+    text-decoration: none;
+    color: black;
+}
+
+/* Customer Home CSS */
+
+#chimken_small_logo {
+    margin: 2%;
+    width: 20%;
+}
+
+.food_tile {
+    display: inline;
+    margin-right: 20%;
+    margin-left: 10%;
+}
+
+input {
+    width: 35px;
+    border-radius: 20px;
+    padding-left: 7px;
+}
+
+.food_image {
+    display: inline-block;
+}
+
+#checkout_button {
+    margin-left: 10%;
+    font-family: "Open Sans", sans-serif;
+    border-radius: 10px;
+}

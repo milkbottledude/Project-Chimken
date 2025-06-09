@@ -4,23 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chimken Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="../../static/mobile.css" rel="stylesheet" media="screen and (max-width:900px)">
+    <link href="../../static/styles.css" rel="stylesheet" media="screen and (min-width:900px)">
 </head>
 <body>
-    <a> hello there </a>
+    <div>
+        <a href="/">
+            <img id="chimken_small_logo" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
+        </a>
+    </div>
     <form method="POST" action="/checkout">
-        <div>
-            <label for="steamed_chicken_rice_amt">Steamed Chicken Rice</label>
-            <input type="number" name="steamed_chicken_rice_amt" id="steamed_chicken_rice_amt" value="0" min="0" required>
+        <div class="food_tile">
+            <img class="food_image" src="" alt="Steamed Chicken Rice">
+            <div>    
+                <label for="steamed_chicken_rice_amt">Steamed Chicken Rice</label>
+                <input type="number" name="steamed_chicken_rice_amt" id="steamed_chicken_rice_amt" value="0" min="0" required>
+            </div>
         </div>
-        <div>
+        <div class="food_tile">
+            <img class="food_image" src="" alt="Half Steamed Chicken">
             <label for="whole_steamed_chicken_amt">Whole Steamed Chicken</label>
             <input type="number" name="whole_steamed_chicken_amt" id="whole_steamed_chicken_amt" value="0" min="0" required>
         </div>
-        <div>
+        <div class="food_tile">
+            <img class="food_image" src="" alt="Whole Steamed Chicken">
             <label for="half_steamed_chicken_amt">Half Steamed Chicken</label>
             <input type="number" name="half_steamed_chicken_amt" id="half_steamed_chicken_amt" value="0" min="0" required>
         </div>
-        <button type="submit">Checkout</button>
+        <button type="submit" id="checkout_button">Checkout</button>
     </form>
 </body>
 </html>

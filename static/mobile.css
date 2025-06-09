@@ -1,0 +1,40 @@
+body {
+    text-align: center;
+    background-color: #efe8dd
+}
+
+/* Login CSS */
+
+#chimken_login_logo_mobile {
+    display: block;
+    margin-top: 20%;
+    margin-bottom: 20%;
+}
+
+#chimken_login_logo {
+    width: 82%;
+}
+
+.login_buttons {
+    display: inline-block;
+    margin: 3%;
+    text-decoration: none;
+    color: #efe8dd;
+    padding: 0.5%;
+    padding-left: 2%;
+    padding-right: 2%;
+    background-color: #ff3131;
+    border-radius: 12px;
+    font-size: larger;
+}
+
+.bottom_text_div {
+    margin-top: 175px;
+}
+
+.bottom_text {
+    text-decoration: none;
+    color: black;
+}
+
+/* Customer Home CSS */
