@@ -38,29 +38,71 @@ body {
 
 /* Customer Home CSS */
 
+
+
 #chimken_small_logo {
-    margin: 2%;
-    width: 20%;
+    margin: 1%;
+    width: 200px;
+}
+
+.top_banner {
+    display: block;
+    width: 100%;
+    border-bottom: 5px solid #ff3131;
+}
+
+#centering_the_fucking_white_form {
+    display: flex;
+    justify-content: center; /* horizontal center */
+    height: 100vh;           /* full viewport height (optional) */
+}
+
+.food_tiles {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    width: 1600px;
+    background-color: white;
 }
 
 .food_tile {
-    display: inline;
-    margin-right: 20%;
-    margin-left: 10%;
+    margin-right: 7%;
+    margin-left: 7%;
+    margin-top: 25px;
+    font-size: 22px;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding-right: 29px;
+    margin-bottom: 75px;
+    background-color: rgb(224, 200, 200);
 }
 
 input {
-    width: 35px;
+    display: block;
+    width: 40px;
     border-radius: 20px;
-    padding-left: 7px;
+    padding-left: 12px;
+    margin-top: 20px;
+    margin-left: 234px;
+    font-size: 22px;
 }
 
 .food_image {
-    display: inline-block;
+    display: block;
+    width: 520px;
+    height: 400px;
+    margin: 3%;
+    border-radius: 20px;
 }
 
 #checkout_button {
-    margin-left: 10%;
+    margin: 7%;
     font-family: "Open Sans", sans-serif;
+    font-size: larger;
     border-radius: 10px;
+    height: 3%;
+    margin-top: 15%;
+    margin-left: 15%;
+    background-color: #ff3131;
+    color: aliceblue;
 }
