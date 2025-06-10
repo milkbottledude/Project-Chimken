@@ -54,7 +54,7 @@ body {
 #centering_the_fucking_white_form {
     display: flex;
     justify-content: center; /* horizontal center */
-    height: 100vh;           /* full viewport height (optional) */
+    height: 100vh;           /* full viewport height */
 }
 
 .food_tiles {

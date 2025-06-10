@@ -38,3 +38,46 @@ body {
 }
 
 /* Customer Home CSS */
+
+#chimken_small_logo {
+    margin: 1%;
+    width: 120px;
+}
+
+.top_banner {
+    display: block;
+    width: 100%;
+    border-bottom: 5px solid #ff3131;
+}
+
+#centering_the_fucking_white_form {
+    display: flex;
+    justify-content: center; /* horizontal center */
+    height: 100vh;           /* full viewport height */
+}
+
+input {
+    width: 29px;
+    border-radius: 20px;
+    padding-left: 10px;
+    font-size: 15px;
+}
+
+.food_image {
+    display: block;
+    width: 240px;
+    height: 180px;
+    margin-top: 15px;
+    margin-bottom: 2px;
+    border-radius: 20px;
+}
+
+#checkout_button {
+    margin: 7%;
+    font-family: "Open Sans", sans-serif;
+    font-size: large;
+    border-radius: 10px;
+    height: 3%;
+    background-color: #ff3131;
+    color: aliceblue;
+}
