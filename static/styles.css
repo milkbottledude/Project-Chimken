@@ -39,8 +39,6 @@ body {
 
 /* Customer Home CSS */
 
-
-
 #chimken_small_logo {
     margin: 8px;
     width: 200px;
@@ -55,22 +53,22 @@ body {
 #centering_the_fucking_white_form {
     display: flex;
     justify-content: center; /* horizontal center */
-    height: 100vh;           /* full viewport height */
 }
 
 .food_tiles {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
-    width: 1600px;
-    background-color: white;
+    width: 1300px;
+    height: auto;           /* full viewport height */
+    background-color: aliceblue;
 }
 
 .food_tile {
     margin-right: 7%;
     margin-left: 7%;
     margin-top: 25px;
-    font-size: 22px;
+    font-size: 18px;
     border: 2px solid black;
     border-radius: 20px;
     padding-right: 29px;
@@ -78,34 +76,42 @@ body {
     background-color: rgb(224, 200, 200);
 }
 
+.food_price {
+    border-radius: 7px;
+    margin-right: 22px;
+    margin-left: 5px;
+    padding: 2px;
+    padding-right: 7px;
+    padding-left: 7px;
+    background-color: #ff3131;
+    color: #efe8dd;
+}
+
 input {
-    display: block;
     width: 40px;
     border-radius: 20px;
     padding-left: 12px;
-    margin-top: 20px;
-    margin-left: 234px;
-    font-size: 22px;
+    font-size: 18px;
+    margin-left: 17px;
+    margin-bottom: 10px;
 }
 
 .food_image {
     display: block;
-    width: 520px;
-    height: 400px;
+    width: 390px;
+    height: 300px;
     margin: 3%;
     border-radius: 20px;
 }
 
 #checkout_button {
-    margin: 7%;
     font-family: "Open Sans", sans-serif;
     font-size: larger;
     border-radius: 10px;
-    height: 3%;
-    margin-top: 15%;
-    margin-left: 15%;
+    height: 35px;
     background-color: #ff3131;
     color: aliceblue;
+    margin: 240px;
 }
 
 /* Checkout CSS */
@@ -115,7 +121,8 @@ body.body_centered {
 }
 
 #chimken_small_logo_centered {
-    width: 240px;
+    width: 190px;
+    padding: 10px;
 }
 
 #back_button {
@@ -127,3 +134,55 @@ body.body_centered {
 
 /* Payment CSS */
 
+.receipt {
+    width: 900px;
+    background-color: white;
+    margin: 0 auto;
+}
+
+#col_headers {
+    display: flex;
+    margin: 0 auto;
+    width: 800px;
+    border-bottom: 2px solid black;
+}
+
+.header_name {
+    margin: 10px 0px;
+}
+
+.header_name_item {
+    margin-left: 39px;
+}
+
+.header_name_quantity {
+    margin-left: 340px;
+}
+
+.header_name_cost {
+margin-left: 170px;
+}
+
+
+.receipt_grid_contents {
+    display: grid;
+    grid-template-columns: 6fr 3fr 3fr; /* First 2 columns bigger */
+    gap: 20px; /* Space between items */
+    margin-left: 69px;
+}
+
+
+.receipt_grid_contents h4 {
+    text-align: left; /* Align text to left */
+    margin: 0; /* Remove default h4 margins */
+    padding: 10px;
+}
+
+
+
+
+
+
+#paynow_ss {
+    width: 100%;
+}

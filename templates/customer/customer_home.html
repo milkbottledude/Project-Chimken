@@ -18,20 +18,30 @@
         <form method="POST" action="/checkout" class="food_tiles">
             <div class="food_tile">
                 <img class="food_image" src="../../static/SSL_steamed_chicken_rice.jpg" alt="Steamed Chicken Rice">
-                <label for="steamed_chicken_rice_amt">Steamed Chicken Rice - $5</label>
+                <label for="steamed_chicken_rice_amt">
+                    <span class="food_price">$5</span>Steamed Chicken Rice
+                </label>
                 <input type="number" name="steamed_chicken_rice_amt" id="steamed_chicken_rice_amt" value="0" min="0" max="9" required>
             </div>
             <div class="food_tile">
                 <img class="food_image" src="../../static/SSL_whole_steamed_chicken.jpg" alt="Whole Steamed Chicken">
-                <label for="half_steamed_chicken_amt">Half Steamed Chicken - $15</label>
+                <label for="half_steamed_chicken_amt">
+                    <span class="food_price">$15</span>Half Steamed Chicken
+                </label>
                 <input type="number" name="half_steamed_chicken_amt" id="half_steamed_chicken_amt" value="0" min="0" max="9" required>
             </div>
             <div class="food_tile">
                 <img class="food_image" src="../../static/SSL_half_steamed_chicken.jpg" alt="Half Steamed Chicken">
-                <label for="whole_steamed_chicken_amt">Whole Steamed Chicken - $20</label>
+                <label for="whole_steamed_chicken_amt">
+                    <span class="food_price">$20</span>Whole Steamed Chicken
+                </label>
                 <input type="number" name="whole_steamed_chicken_amt" id="whole_steamed_chicken_amt" value="0" min="0" max="9" required>
             </div>
             <button type="submit" id="checkout_button">Checkout</button>
+            <!-- OR -->
+            <!-- <button type="submit">
+                <img src="submit-icon.png" alt="Submit">
+            </button> -->
         </form>
     </div>
 </body>

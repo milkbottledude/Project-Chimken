@@ -8,7 +8,7 @@
     <link href="../../static/mobile.css" rel="stylesheet" media="screen and (max-aspect-ratio: 8/7)">
     <link href="../../static/styles.css" rel="stylesheet" media="screen and (min-aspect-ratio: 8/7)">
 </head>
-<body>
+<body class="body_centered">
     <!-- here we will provide the qr code for paynow, den also provide the 'input' where they can submit their ss of the shi, plus a submit button to submit their ss. 
     Once submitted, will bring them to another page, think ill name it 'confirmation.html'. First, it will be 'checking ss validity' or 'checking for payment'.
     then once checked by YOLO or owner, will change to 'payment is successful! order has been sent through and will be 'completed shortly' OR 'in 5mins', see if owner want to implement smth liddat. -->
@@ -20,12 +20,27 @@
             <img id="chimken_small_logo_centered" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
         </a>
     </div>
+    <div class="receipt">
+        <h2>
+            Order Summary
+        </h2>
+        <div id="col_headers">
+            <h3 class="header_name header_name_item">Item</h3>
+            <h3 class="header_name header_name_quantity">Quantity</h3>
+            <h3 class="header_name header_name_cost">Cost</h3>
+        </div>
+        <div class="receipt_grid_contents">
+            <h4 class="column_item">Whole Steamed Chicken</h4>
+            <h4 class="column_quantity">9</h4>
+            <h4 class="column_cost">$180.00</h4>
+        </div>
+    </div>
     <div>
         Total Amount: {{ total_cost }}
     </div>
     <form id="payment_form">
         <div>
-            <label for="paynow_ss">Enter your Paynow Screenshot:</label>
+            <!-- <label for="paynow_ss">Enter your Paynow Screenshot:</label> -->
             <input type="file" name="paynow_ss" id="paynow_ss" accept="image/*" required>
         </div>
         <div>

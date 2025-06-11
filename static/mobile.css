@@ -51,11 +51,31 @@ body {
     height: 100vh;           /* full viewport height */
 }
 
+.food_tiles {
+    height: auto;         
+    padding: 10px;
+    padding-left: 19px; 
+    background-color: aliceblue;
+}
+
+.food_price {
+    border-radius: 7px;
+    margin-right: 7px;
+    margin-left: 5px;
+    padding: 1px;
+    padding-right: 7px;
+    padding-left: 7px;
+    background-color: #ff3131;
+    color: #efe8dd;
+}
+
 input {
-    width: 29px;
+    width: 24px;
     border-radius: 20px;
-    padding-left: 10px;
+    padding-left: 7px;
     font-size: 15px;
+    margin-left: 5px;
+    margin-bottom: 5px;
 }
 
 .food_image {
@@ -63,16 +83,17 @@ input {
     width: 240px;
     height: 180px;
     margin-top: 15px;
-    margin-bottom: 2px;
+    margin-bottom: 10px;
     border-radius: 20px;
 }
 
 #checkout_button {
-    margin: 7%;
+    margin-top: 46px;
+    margin-bottom: 19px;
     font-family: "Open Sans", sans-serif;
-    font-size: large;
+    font-size: 15px;
     border-radius: 10px;
-    height: 3%;
+    height: 29px;
     background-color: #ff3131;
     color: aliceblue;
 }
