@@ -6,14 +6,19 @@
     <meta name="description" content="here is where we will calculate the user's bill and write out their order for them to check">
     <title>Chimken Checkout</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link href="../../static/mobile.css" rel="stylesheet" media="screen and (max-aspect-ratio: 8/7)">
-    <link href="../../static/styles.css" rel="stylesheet" media="screen and (min-aspect-ratio: 8/7)">
+    <link href="../../static/mobile.css" rel="stylesheet" media="screen and (max-aspect-ratio: 1/1)">
+    <link href="../../static/styles.css" rel="stylesheet" media="screen and (min-aspect-ratio: 1/1)">
 </head>
-<body>
+<body class="body_centered">
     <!-- should add some options for them to go back to home, as well as remove any orders they do not want. But to remove any orders they dont want from this page alone, we would need js to dynamically change the final cost... If js doesnt work, stick to editing of the order by going back to home</div> -->
-    <a href="/home">
-        <button>Home</button>
-    </a>
+    <div class="top_banner">
+        <a href="/home">
+            <img id="back_button" src="../../static/back_button.jpg" alt="back_button">
+        </a>
+        <a href="/">
+            <img id="chimken_small_logo_centered" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
+        </a>
+    </div>
     <div>
         {% for item in items_ordered %}
             <p>{{ item }}</p>

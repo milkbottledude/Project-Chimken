@@ -39,11 +39,6 @@ body {
 
 /* Customer Home CSS */
 
-#chimken_small_logo {
-    margin: 1%;
-    width: 120px;
-}
-
 .top_banner {
     display: block;
     width: 100%;
@@ -80,4 +75,21 @@ input {
     height: 3%;
     background-color: #ff3131;
     color: aliceblue;
+}
+
+/* Checkout CSS */
+
+body.body_centered {
+    text-align: center;
+}
+
+#chimken_small_logo_centered {
+    width: 240px;
+}
+
+#back_button {
+    width: 32px;
+    position: absolute;
+    left: 24px;
+    top: 19px;
 }

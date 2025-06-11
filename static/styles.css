@@ -26,9 +26,10 @@ body {
 }
 
 .bottom_text_div {
-    margin-top: 224px;
-    margin-left: 12%;
-
+    position: absolute;
+    bottom: 0;
+    left: 190px;
+    bottom: 100px;
 }
 
 .bottom_text {
@@ -41,7 +42,7 @@ body {
 
 
 #chimken_small_logo {
-    margin: 1%;
+    margin: 8px;
     width: 200px;
 }
 
@@ -106,3 +107,23 @@ input {
     background-color: #ff3131;
     color: aliceblue;
 }
+
+/* Checkout CSS */
+
+body.body_centered {
+    text-align: center;
+}
+
+#chimken_small_logo_centered {
+    width: 240px;
+}
+
+#back_button {
+    width: 32px;
+    position: absolute;
+    left: 24px;
+    top: 19px;
+}
+
+/* Payment CSS */
+

@@ -4,11 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chimken Payment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="../../static/mobile.css" rel="stylesheet" media="screen and (max-aspect-ratio: 8/7)">
+    <link href="../../static/styles.css" rel="stylesheet" media="screen and (min-aspect-ratio: 8/7)">
 </head>
 <body>
-    <div> here we will provide the qr code for paynow, den also provide the 'input' where they can submit their ss of the shi, plus a submit button to submit their ss. </div>
-    <div> Once submitted, will bring them to another page, think ill name it 'confirmation.html'. First, it will be 'checking ss validity' or 'checking for payment'.</div>
-    <div> then once checked by YOLO or owner, will change to 'payment is successful! order has been sent through and will be 'completed shortly' OR 'in 5mins', see if owner want to implement smth liddat.</div>
+    <!-- here we will provide the qr code for paynow, den also provide the 'input' where they can submit their ss of the shi, plus a submit button to submit their ss. 
+    Once submitted, will bring them to another page, think ill name it 'confirmation.html'. First, it will be 'checking ss validity' or 'checking for payment'.
+    then once checked by YOLO or owner, will change to 'payment is successful! order has been sent through and will be 'completed shortly' OR 'in 5mins', see if owner want to implement smth liddat. -->
+    <div class="top_banner">
+        <a href="/checkout">
+            <img id="back_button" src="../../static/back_button.jpg" alt="back_button">
+        </a>
+        <a href="/">
+            <img id="chimken_small_logo_centered" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
+        </a>
+    </div>
     <div>
         Total Amount: {{ total_cost }}
     </div>

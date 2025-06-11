@@ -32,8 +32,8 @@ def checkout():
         steamed_chicken_rice_ordered = int(request.form.get('steamed_chicken_rice_amt'))
         half_steamed_chicken_ordered = int(request.form.get('half_steamed_chicken_amt'))
         whole_steamed_chicken_ordered = int(request.form.get('whole_steamed_chicken_amt'))
-        item_amts_ordered = [steamed_chicken_rice_ordered, whole_steamed_chicken_ordered, half_steamed_chicken_ordered]
-        items = ['Steamed Chicken Rice', 'Whole Steamed Chicken', 'Half Steamed Chicken']
+        item_amts_ordered = [steamed_chicken_rice_ordered, half_steamed_chicken_ordered, whole_steamed_chicken_ordered]
+        items = ['Steamed Chicken Rice', 'Half Steamed Chicken', 'Whole Steamed Chicken']
         items_ordered = []
         print(item_amts_ordered)
         for x in range(len(item_amts_ordered)):
