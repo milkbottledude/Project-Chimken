@@ -11,8 +11,8 @@ stall_phone_number = None
 
 item_prices = {
     'Steamed Chicken Rice': 5.00,
-    'Whole Steamed Chicken': 20.00,
-    'Half Steamed Chicken': 15.00
+    'Half Steamed Chicken': 15.00,
+    'Whole Steamed Chicken': 20.00
 }
 
 @app.route('/')
@@ -30,8 +30,8 @@ def home():
 def checkout():
     if request.method == 'POST':
         steamed_chicken_rice_ordered = int(request.form.get('steamed_chicken_rice_amt'))
-        whole_steamed_chicken_ordered = int(request.form.get('whole_steamed_chicken_amt'))
         half_steamed_chicken_ordered = int(request.form.get('half_steamed_chicken_amt'))
+        whole_steamed_chicken_ordered = int(request.form.get('whole_steamed_chicken_amt'))
         item_amts_ordered = [steamed_chicken_rice_ordered, whole_steamed_chicken_ordered, half_steamed_chicken_ordered]
         items = ['Steamed Chicken Rice', 'Whole Steamed Chicken', 'Half Steamed Chicken']
         items_ordered = []
@@ -48,7 +48,7 @@ def checkout():
             price_list.append(item_price)
         total_cost = sum(price_list)
         item_amts_ordered_filtered = [x for x in item_amts_ordered if x > 0]
-        return render_template('checkout.html', items_ordered = items_ordered, price_list = price_list, total_cost = total_cost, item_amts_ordered_filtered = item_amts_ordered_filtered)
+        return render_template('customer/checkout.html', items_ordered = items_ordered, price_list = price_list, total_cost = total_cost, item_amts_ordered_filtered = item_amts_ordered_filtered)
     else:
         return render_template('customer/customer_home.html')
 
