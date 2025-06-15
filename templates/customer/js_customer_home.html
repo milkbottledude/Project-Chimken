@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chimken Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="../../static/mobile.css" rel="stylesheet" media="screen and (max-aspect-ratio: 8/7)">
+    <link href="../../static/styles.css" rel="stylesheet" media="screen and (min-aspect-ratio: 8/7)">
+</head>
+<body>
+    <div class="top_banner">
+        <a href="/">
+            <img id="chimken_small_logo" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
+        </a>
+        <h2 id="next_to_checkout">$<span id="initial_cost">0</span></h2>
+        <a href="/checkout">
+            <img id="checkout_icon" src="../../static/checkout_icon.jpg" alt="checkout_icon">
+        </a>
+    </div>
+    <div id="centering_the_fucking_white_form">
+        <div class="food_tile">
+            <img class="food_image" src="../../static/SSL_steamed_chicken_rice.jpg" alt="Steamed Chicken Rice">
+            <h4 class="food_price_and_name">
+                <span class="food_price">$5</span>Steamed Chicken Rice
+            </h4>
+            <div class="minus_plus_quantity">
+                <button class="minus_plus_button" id="decrease_SCR">-</button>
+                <span id="SCR_quantity">0</span>
+                <button class="minus_plus_button" id="increase_SCR">+</button>
+            </div>
+        </div>
+        <div class="food_tile">
+            <img class="food_image" src="../../static/SSL_whole_steamed_chicken.jpg" alt="Whole Steamed Chicken">
+            <h4 class="food_price_and_name">
+                <span class="food_price">$15</span>Half Steamed Chicken
+            </h4>
+            <div class="minus_plus_quantity">
+                <button class="minus_plus_button" id="decrease_HSC">-</button>
+                <span id="HSC_quantity">0</span>
+                <button class="minus_plus_button" id="increase_HSC">+</button>
+            </div>
+        </div>
+        <div class="food_tile">
+            <img class="food_image" src="../../static/SSL_half_steamed_chicken.jpg" alt="Half Steamed Chicken">
+            <h4 class="food_price_and_name">
+                <span class="food_price">$20</span>Whole Steamed Chicken
+            </h4>
+            <div class="minus_plus_quantity">
+                <button class="minus_plus_button" id="decrease_WSC">-</button>
+                <span id="WSC_quantity">0</span>
+                <button class="minus_plus_button" id="increase_WSC">+</button>
+            </div>
+        </div>
+    </div>
+    <!-- hidden form here -->
+    <form method="POST" action="/checkout">
+        <input type="hidden" name="SCR_quantity" value="" id="SCR_quantity_input">
+        <input type="hidden" name="HSC_quantity" value="" id="HSC_quantity_input">
+        <input type="hidden" name="WSC_quantity" value="" id="WSC_quantity_input">
+        <input type="hidden" name="initial_cost" value="" id="initial_cost_input">
+    </form>
+    <script src="../../static/customer_home.js"></script>
+</body>
+</html>

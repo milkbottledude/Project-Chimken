@@ -45,28 +45,39 @@ body {
 }
 
 .top_banner {
+    position: fixed;
     display: block;
+    top: 0;
     width: 100%;
     border-bottom: 5px solid #ff3131;
 }
 
-#centering_the_fucking_white_form {
-    display: flex;
-    justify-content: center; /* horizontal center */
+#next_to_checkout {
+    position: fixed;
+    right: 140px;
+    top: 0;
+    font-size: 25px;
 }
 
-.food_tiles {
+#checkout_icon {
+    position: fixed;
+    right: 27px;
+    top: 7px;
+    width: 60px;
+}
+
+#centering_the_fucking_white_form {
+    width: 70%;
+    gap: 14%;
     display: flex;
     flex-wrap: wrap;
-    text-align: center;
-    width: 1300px;
-    height: auto;           /* full viewport height */
-    background-color: aliceblue;
+    margin: 0 auto;
+    margin-top: 7%;
 }
 
 .food_tile {
-    margin-right: 7%;
-    margin-left: 7%;
+    /* margin-left: 40px;
+    margin-right: 40px; */
     margin-top: 25px;
     font-size: 18px;
     border: 2px solid black;
@@ -76,10 +87,13 @@ body {
     background-color: rgb(224, 200, 200);
 }
 
+.food_price_and_name {
+    text-align: center;
+}
+
 .food_price {
     border-radius: 7px;
-    margin-right: 22px;
-    margin-left: 5px;
+    margin-right: 15px;
     padding: 2px;
     padding-right: 7px;
     padding-left: 7px;
@@ -87,12 +101,10 @@ body {
     color: #efe8dd;
 }
 
-input {
-    width: 40px;
-    border-radius: 20px;
-    padding-left: 12px;
-    font-size: 18px;
-    margin-left: 17px;
+.minus_plus_quantity {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 29px;
     margin-bottom: 10px;
 }
 
@@ -118,11 +130,6 @@ input {
 
 body.body_centered {
     text-align: center;
-}
-
-#chimken_small_logo_centered {
-    width: 190px;
-    padding: 10px;
 }
 
 #back_button {

@@ -20,9 +20,13 @@ def login():
     return render_template('login.html')
 
 # add python code for home below
-@app.route('/home')
+@app.route('/old_home')
 def home():
     return render_template('customer/customer_home.html')
+
+@app.route('/js_home')
+def js_home():
+    return render_template('customer/js_customer_home.html')
 
 
 # here is where the ngas can see what they ordered
@@ -50,7 +54,7 @@ def checkout():
         item_amts_ordered_filtered = [x for x in item_amts_ordered if x > 0]
         return render_template('customer/checkout.html', items_ordered = items_ordered, price_list = price_list, total_cost = total_cost, item_amts_ordered_filtered = item_amts_ordered_filtered)
     else:
-        return render_template('customer/customer_home.html')
+        return render_template('customer/js_customer_home.html')
 
 
 # here is where they scan the qr code and submit ss of paynow
