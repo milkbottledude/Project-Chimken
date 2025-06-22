@@ -14,9 +14,7 @@
             <img id="chimken_small_logo" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
         </a>
         <h2 id="next_to_checkout">$<span id="initial_cost">0</span></h2>
-        <a href="/checkout">
-            <img id="checkout_icon" src="../../static/checkout_icon.jpg" alt="checkout_icon">
-        </a>
+        <img id="checkout_icon" src="../../static/checkout_icon.jpg" alt="checkout_icon">
     </div>
     <div id="centering_the_fucking_white_form">
         <div class="food_tile">
@@ -54,7 +52,7 @@
         </div>
     </div>
     <!-- hidden form here -->
-    <form method="POST" action="/checkout">
+    <form method="POST" action="/checkout" id="hidden_form">
         <input type="hidden" name="SCR_quantity" value="" id="SCR_quantity_input">
         <input type="hidden" name="HSC_quantity" value="" id="HSC_quantity_input">
         <input type="hidden" name="WSC_quantity" value="" id="WSC_quantity_input">

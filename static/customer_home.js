@@ -5,6 +5,7 @@ const whole_steamed_chicken_price = 20;
 
 // total cost b4 gst and allat
 const initial_cost = document.getElementById('initial_cost')
+const checkout_button = document.getElementById('checkout_icon')
 
 // for steamed chicken rice
 const down_SCR = document.getElementById('decrease_SCR')
@@ -21,7 +22,12 @@ down_SCR.addEventListener('click', function() {
         let current_cost = parseInt(initial_cost.textContent)
         current_cost -= steamed_chicken_rice_price
         initial_cost.textContent = current_cost
+
+        if (current_cost == 0) {
+            checkout_button.style.display ='none'
+        }
     }
+
 })
 
 up_SCR.addEventListener('click', function() {
@@ -32,6 +38,7 @@ up_SCR.addEventListener('click', function() {
     let current_cost = parseInt(initial_cost.textContent)
     current_cost += steamed_chicken_rice_price
     initial_cost.textContent = current_cost
+    checkout_button.style.display = 'block'
 })
 
 
@@ -50,6 +57,10 @@ down_HSC.addEventListener('click', function() {
         let current_cost = parseInt(initial_cost.textContent)
         current_cost -= half_steamed_chicken_price
         initial_cost.textContent = current_cost
+
+        if (current_cost == 0) {
+            checkout_button.style.display ='none'
+        }
     }
 })
 
@@ -61,6 +72,7 @@ up_HSC.addEventListener('click', function() {
     let current_cost = parseInt(initial_cost.textContent)
     current_cost += half_steamed_chicken_price
     initial_cost.textContent = current_cost
+    checkout_button.style.display = 'block'
 })
 
 // for whole steamed chicken
@@ -78,6 +90,10 @@ down_WSC.addEventListener('click', function() {
         let current_cost = parseInt(initial_cost.textContent)
         current_cost -= whole_steamed_chicken_price
         initial_cost.textContent = current_cost
+
+        if (current_cost == 0) {
+            checkout_button.style.display ='none'
+        }
     }
 })
 
@@ -89,6 +105,17 @@ up_WSC.addEventListener('click', function() {
     let current_cost = parseInt(initial_cost.textContent)
     current_cost += whole_steamed_chicken_price
     initial_cost.textContent = current_cost
+    checkout_button.style.display = 'block'
 })
 
 // for pressing checkout and passing on hidden form
+
+const hidden_form = document.getElementById('hidden_form')
+
+checkout_button.addEventListener('click', function() {
+    document.getElementById('SCR_quantity_input').value = SCR_quantity.textContent;
+    document.getElementById('HSC_quantity_input').value = HSC_quantity.textContent;
+    document.getElementById('WSC_quantity_input').value = WSC_quantity.textContent;
+    document.getElementById('initial_cost_input').value = initial_cost.textContent;
+    hidden_form.submit();
+})

@@ -60,6 +60,7 @@ body {
 }
 
 #checkout_icon {
+    display: none;
     position: fixed;
     right: 27px;
     top: 7px;

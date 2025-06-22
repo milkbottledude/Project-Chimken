@@ -33,9 +33,10 @@ def js_home():
 @app.route('/checkout', methods=['GET', 'POST']) # Maybe add a msg as well to say 'u hvnt ordered shi', but not yet focus on basics first
 def checkout():
     if request.method == 'POST':
-        steamed_chicken_rice_ordered = int(request.form.get('steamed_chicken_rice_amt'))
-        half_steamed_chicken_ordered = int(request.form.get('half_steamed_chicken_amt'))
-        whole_steamed_chicken_ordered = int(request.form.get('whole_steamed_chicken_amt'))
+        steamed_chicken_rice_ordered = int(request.form.get('SCR_quantity'))
+        half_steamed_chicken_ordered = int(request.form.get('HSC_quantity'))
+        whole_steamed_chicken_ordered = int(request.form.get('WSC_quantity'))
+        initial_total_cost = int(request.form.get('initial_cost'))
         item_amts_ordered = [steamed_chicken_rice_ordered, half_steamed_chicken_ordered, whole_steamed_chicken_ordered]
         items = ['Steamed Chicken Rice', 'Half Steamed Chicken', 'Whole Steamed Chicken']
         items_ordered = []
@@ -54,6 +55,7 @@ def checkout():
         item_amts_ordered_filtered = [x for x in item_amts_ordered if x > 0]
         return render_template('customer/checkout.html', items_ordered = items_ordered, price_list = price_list, total_cost = total_cost, item_amts_ordered_filtered = item_amts_ordered_filtered)
     else:
+        print('its get')
         return render_template('customer/js_customer_home.html')
 
 
