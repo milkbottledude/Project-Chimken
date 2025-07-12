@@ -1,6 +1,12 @@
-body {
+html, body {
+    background-color: #efe8dd;
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+body.login_page {
     text-align: center;
-    background-color: #efe8dd
+    background-color: #efe8dd;
 }
 
 /* Login CSS */
@@ -12,7 +18,7 @@ body {
 }
 
 #chimken_login_logo {
-    width: 82%;
+    width: 400px;
 }
 
 .login_buttons {
@@ -26,10 +32,14 @@ body {
     background-color: #ff3131;
     border-radius: 12px;
     font-size: larger;
+    margin-bottom: 60px;
 }
 
 .bottom_text_div {
-    margin-top: 175px;
+    position: fixed;
+    bottom: 40px;
+    width: 100%;
+    text-align: center;
 }
 
 .bottom_text {
@@ -39,26 +49,53 @@ body {
 
 /* Customer Home CSS */
 
+#chimken_small_logo {
+    margin: 5px;
+    margin-bottom: 3px;
+    width: 160px;
+    left: 2px;
+}
+
 .top_banner {
+    position: fixed;
     display: block;
+    top: 0;
     width: 100%;
     border-bottom: 5px solid #ff3131;
+    background-color: #efe8dd;
+}
+
+#next_to_checkout {
+    position: fixed;
+    right: 85px;
+    top: 2px;
+    font-size: 21px;
+}
+
+#checkout_icon {
+    display: none;
+    position: fixed;
+    right: 21px;
+    top: 7px;
+    width: 49px;
 }
 
 #centering_the_fucking_white_form {
-    display: flex;
-    justify-content: center; /* horizontal center */
+    text-align: center;
     height: 100vh;           /* full viewport height */
 }
 
-.food_tiles {
-    height: auto;         
-    padding: 10px;
-    padding-left: 19px; 
-    background-color: aliceblue;
+.food_tile {
+    font-size: 18px;
+    border: 2px solid black;
+    border-radius: 20px;
+    margin: 60px 45px;
+    padding-bottom: 10px;
+    background-color: rgb(224, 200, 200);
 }
 
 .food_price {
+    font-family: 'Segoe UI';
     border-radius: 7px;
     margin-right: 7px;
     margin-left: 5px;
@@ -69,22 +106,18 @@ body {
     color: #efe8dd;
 }
 
-input {
-    width: 24px;
-    border-radius: 20px;
-    padding-left: 7px;
-    font-size: 15px;
-    margin-left: 5px;
+.minus_plus_quantity {
+    display: flex;
+    justify-content: space-around;
     margin-bottom: 5px;
 }
 
 .food_image {
-    display: block;
     width: 240px;
     height: 180px;
     margin-top: 15px;
-    margin-bottom: 10px;
     border-radius: 20px;
+    text-align: center;
 }
 
 #checkout_button {
@@ -104,13 +137,109 @@ body.body_centered {
     text-align: center;
 }
 
-#chimken_small_logo_centered {
-    width: 240px;
-}
-
-#back_button {
+#home_button {
     width: 32px;
     position: absolute;
-    left: 24px;
-    top: 19px;
+    left: 15px;
+    top: 9px;
+}
+
+.order_details {
+    margin: 0 auto;
+    margin-top: 90px;
+    display: flex;
+    justify-content: center;
+    background-color: lightyellow;
+    width: 80%;
+    border: 1px solid grey;
+}
+
+.order_box {
+    margin: 35px;
+    text-align: left;
+}
+
+.col_label {
+    font-weight: bold;
+    height: 2em;
+}
+
+.row_value {
+    height: 2em;
+}
+
+#item_amts_ordered {
+    text-align: center;
+}
+
+#cost_list {
+    text-align: center;
+}
+
+.bottom_cost_row {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.total_cost_shi {
+    font-size: 21px;
+}
+
+#total_cost_label {
+    margin-right: auto;
+    margin-left: 35px;
+}
+
+#total_cost_value {
+    margin-left: auto;
+    margin-right: 35px;
+}
+
+#hidden_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#payment_button {
+    margin: 0px 25px;
+    margin-top: auto;
+    margin-bottom: 10px;
+    font-size: 15px;
+    background-color: #ff3131;
+    color: #efe8dd;
+    padding: 10px 20px;
+    border-radius: 2px;
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+/* Payment CSS */
+
+#paynow_cost_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 75px;
+    font-size: 17px;
+}
+
+#paynow_cost {
+    margin-top: 40px;
+    font-size: 29px;
+    margin-left: 12px;
+    color: rgb(248, 64, 8);
+}
+
+.paynow_qr_container {
+    margin: 0 auto;
+}
+
+#paynow_qr_placeholder {
+    margin: 40px auto;
+    width: 100px;
+    height: 100px;
+    background-color: black;
 }

@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chimken Payment</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link href="../../static/mobile.css" rel="stylesheet" media="screen and (max-aspect-ratio: 8/7)">
-    <link href="../../static/styles.css" rel="stylesheet" media="screen and (min-aspect-ratio: 8/7)">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="../../static/mobile.css" rel="stylesheet" media="screen and (max-width: 900px)">
+    <link href="../../static/styles.css" rel="stylesheet" media="screen and (min-width: 900px)">
 </head>
 <body class="body_centered">
     <!-- here we will provide the qr code for paynow, den also provide the 'input' where they can submit their ss of the shi, plus a submit button to submit their ss. 
@@ -14,13 +14,13 @@
     then once checked by YOLO or owner, will change to 'payment is successful! order has been sent through and will be 'completed shortly' OR 'in 5mins', see if owner want to implement smth liddat. -->
     <div class="top_banner">
         <a href="/checkout">
-            <img id="back_button" src="../../static/back_button.jpg" alt="back_button">
+            <img id="home_button" src="../../static/home_button.jpg" alt="home_button">
         </a>
         <a href="/">
-            <img id="chimken_small_logo_centered" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
+            <img id="chimken_small_logo" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
         </a>
     </div>
-    <div class="receipt">
+    <!-- <div class="receipt"> FOR AFTER PAYMENT, U GET RECEIPT
         <h2>
             Order Summary
         </h2>
@@ -34,13 +34,32 @@
             <h4 class="column_quantity">9</h4>
             <h4 class="column_cost">$180.00</h4>
         </div>
+    </div> -->
+    <div id="paynow_cost_container">
+        <p>Total ({{total_amts}} {{itemsss}}): </p>
+        <p class='murney col_label' id='paynow_cost'>${{ total_cost }}</p>
+    </div>
+    <div class="paynow_qr_container">
+        <p> Please scan below to pay with Paynow </p>
+        <div id="paynow_qr_placeholder"></div>
+        <!-- <img id="paynow_qrcode" src="" alt="paynow_qrcode"> -->
     </div>
     <div>
-        Total Amount: {{ total_cost }}
+        <p>After paying, please wait while we process your payment</p>
+        <form method="POST" action="/confirmation" id="hidden_form">
+            <input type="hidden" name="items_ordered" value="{{ items_ordered }}">
+            <input type="hidden" name="item_amts_ordered_filtered" value="{{ item_amts_ordered_filtered }}">
+            <input type="hidden" name="price_list" value="{{ price_list }}">
+            <input type="hidden" name="total_cost" value="{{ total_cost }}">
+            <input type="hidden" name="order_time" value="{{ order_time }}">
+            <input type="hidden" name="order_date" value="{{ order_date }}">
+            <button id="confirmation_button" type="submit">(DEMO) Go to Confirmation</button>
+        </form>
     </div>
-    <form id="payment_form">
+    <button>(DEMO) Send order details to database</button>
+    <!-- <form id="payment_form"> IF CAN GET DBS RAPID API FOR CHEAP, THEN DONT NEED THIS
         <div>
-            <!-- <label for="paynow_ss">Enter your Paynow Screenshot:</label> -->
+            <label for="paynow_ss">Enter your Paynow Screenshot:</label>
             <input type="file" name="paynow_ss" id="paynow_ss" accept="image/*" required>
         </div>
         <div>
@@ -51,6 +70,8 @@
         <div>
             <button type="submit">Submit Screenshot</button>
         </div>
-    </form>
+    </form> -->
+
+    <!-- IF I GET THE DBS RAPID API, CAN HAVE THE API SIMPLY SEND A REQUEST TO confirmation.html WITHOUT HAVING TO DO ANYTH FROM payment.html. but need to figure out how to change html without doing anyth -->
 </body>
 </html>

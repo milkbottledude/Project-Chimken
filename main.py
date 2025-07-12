@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO
+import ast
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'not_the_actual_key'
@@ -36,7 +38,7 @@ def checkout():
         steamed_chicken_rice_ordered = int(request.form.get('SCR_quantity'))
         half_steamed_chicken_ordered = int(request.form.get('HSC_quantity'))
         whole_steamed_chicken_ordered = int(request.form.get('WSC_quantity'))
-        initial_total_cost = int(request.form.get('initial_cost'))
+        total_cost = f"{float(request.form.get('initial_cost')):.2f}"
         item_amts_ordered = [steamed_chicken_rice_ordered, half_steamed_chicken_ordered, whole_steamed_chicken_ordered]
         items = ['Steamed Chicken Rice', 'Half Steamed Chicken', 'Whole Steamed Chicken']
         items_ordered = []
@@ -51,8 +53,10 @@ def checkout():
             index = items.index(item)
             item_price = item_base_price * item_amts_ordered[index]
             price_list.append(item_price)
-        total_cost = sum(price_list)
         item_amts_ordered_filtered = [x for x in item_amts_ordered if x > 0]
+        print(item_amts_ordered_filtered)
+        total_amts = sum(item_amts_ordered_filtered)
+        print(total_amts)
         return render_template('customer/checkout.html', items_ordered = items_ordered, price_list = price_list, total_cost = total_cost, item_amts_ordered_filtered = item_amts_ordered_filtered)
     else:
         print('its get')
@@ -62,9 +66,25 @@ def checkout():
 # here is where they scan the qr code and submit ss of paynow
 @app.route('/payment', methods=['POST'])
 def payment():
+    itemidk = 'items'
+    # use this ast thingie to convert '[3, 1]' into an actual list [3, 1]
+    item_amts_ordered_filtered = ast.literal_eval(request.form.get('item_amts_ordered_filtered'))
+    print(item_amts_ordered_filtered)
+    total_amts = 0
+    for item_amt in item_amts_ordered_filtered:
+        total_amts += int(item_amt)
+    print(total_amts)
+    if total_amts == 1:
+        itemidk = 'item'
     total_cost = request.form.get('total_cost')
-    print(total_cost)
-    return render_template('customer/payment.html', total_cost = total_cost)
+    items_ordered = ast.literal_eval(request.form.get('items_ordered'))
+    price_list = ast.literal_eval(request.form.get('price_list'))
+    order_datetime = datetime.now() + timedelta(hours=8)
+    order_datetime = order_datetime.strftime("%Y-%m-%d %H:%M:%S")
+    order_date = order_datetime.split(' ')[0]
+    order_time = order_datetime.split(' ')[1]
+    # 'APPEND ORDER DETAILS TO DATABASE CODE' HERE
+    return render_template('customer/payment.html', items_ordered = items_ordered, price_list = price_list, item_amts_ordered_filtered = item_amts_ordered_filtered, total_cost = total_cost, total_amts = total_amts, itemsss = itemidk, order_date = order_date, order_time = order_time)
 
 # this will use socket.io to handle the form and send data to the admin dashboard
 
@@ -72,7 +92,13 @@ def payment():
 # this is where the YOLO will take out all the impt info and verify, as well as upload the data to a database
 @app.route('/confirmation', methods=['POST'])
 def confirmation():
-    return render_template('customer/confirmation.html')
+    items_ordered = ast.literal_eval(request.form.get('items_ordered'))
+    price_list = ast.literal_eval(request.form.get('price_list'))
+    item_amts_ordered_filtered = ast.literal_eval(request.form.get('item_amts_ordered_filtered'))
+    total_cost = request.form.get('total_cost')
+    order_date = request.form.get('order_date')
+    order_time = request.form.get('order_time')
+    return render_template('customer/confirmation.html', items_ordered = items_ordered, price_list = price_list, item_amts_ordered_filtered = item_amts_ordered_filtered, total_cost = total_cost, order_date = order_date, order_time = order_time)
 
 # do stall owner stuff only after u finish all the customer stuff
 @app.route('/admin_home', methods=['POST'])

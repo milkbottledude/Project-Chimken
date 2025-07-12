@@ -1,11 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="here is where we will calculate the user's bill and write out their order for them to check">
+        <title>Order Confirmation</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&display=swap" rel="stylesheet">
+        <link href="../../static/mobile.css" rel="stylesheet" media="screen and (max-width: 900px)">
+        <link href="../../static/styles.css" rel="stylesheet" media="screen and (min-width: 900px)">
+    </head>
+<body class="body_centered">
+    <div class="top_banner">
+        <a href="/js_home">
+            <img id="home_button" src="../../static/home_button.jpg" alt="home_button">
+        </a>
+        <a href="/">
+            <img id="chimken_small_logo" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
+        </a>
+    </div>
+    <div class="order_success">
+        <p id="order_time">TIME OF ORDER: {{order_time}} </p>
+        <p>Order successfully placed!</p>
+        <img src="static/bit_unc_v1.png" id="bit_unc" alt="bit_unc"></img>
+        <p id="order_status">Currently preparing
+            <span class='loading_dots' id="first_dot">.</span>
+            <span class='loading_dots' id="second_dot">.</span>
+            <span class='loading_dots' id="third_dot">.</span>
+        </p>
+        <div class="time_to_fud">
+            <p id="collect_in">Please collect in: </p>
+            <div id="timer">
+                04:00
+            </div>
+        </div>
+    </div>
+    <div class="receipt">
+        <div class="shop_details">
+            <p id="shop_name"> Sing Soon Lee Hainanese Boneless Chicken Rice </p>
+            <p id="address"> 628 Ang Mo Kio Ave 4, #01-93, Singapore 560628 </p>
+            <p id="tp_number"> Tel: 81234567 </p>
+        </div>
+        <div class="dotted_box">
+            <p> Order ID: {{order_id}}</p>
+            <p id="receipt_date"> Date: {{order_date}}</p>
+            <p id="receipt_time"> Time: {{order_time}}</p>
+        </div>
+        <div class="order_details receipt_grid">
+            <div class="order_box" id="items_ordered">
+                <p class="col_label"> Item ordered </p>
+                {% for item in items_ordered %}
+                    <p class="row_value">{{ item }}</p>
+                {% endfor %}
+                <p class="total_cost_receipt"> Total Cost </p>
+            </div>
+            <div class="order_box" id="item_amts_ordered">
+                <p class="col_label"> Amount </p>
+                {% for amt in item_amts_ordered_filtered %}
+                    <p class="row_value">{{ amt }}</p>
+                {% endfor %}
+            </div>
+            <div class="order_box" id="cost_list">
+                <p class="col_label"> Cost </p>
+                {% for price in price_list %}
+                    <p class="row_value" class="zero_space"> {{ price }} </p>
+                {% endfor %}
+                <p class="total_cost_receipt">${{ total_cost }}</p>
+            </div>
+        </div>
+        <div class="receipt_bottom">
+            <p id="amt_paid"> Amount paid: </p>
+            <p>{{ total_cost }}</p>
+        </div>
+        <p id="THANKU"> THANK YOU AND COME AGAIN</p>
+    </div>
 </body>
 </html>

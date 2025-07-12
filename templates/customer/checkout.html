@@ -5,43 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="here is where we will calculate the user's bill and write out their order for them to check">
     <title>Chimken Checkout</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link href="../../static/mobile.css" rel="stylesheet" media="screen and (max-aspect-ratio: 1/1)">
-    <link href="../../static/styles.css" rel="stylesheet" media="screen and (min-aspect-ratio: 1/1)">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="../../static/mobile.css" rel="stylesheet" media="screen and (max-width: 900px)">
+    <link href="../../static/styles.css" rel="stylesheet" media="screen and (min-width: 900px)">
 </head>
 <body class="body_centered">
     <!-- should add some options for them to go back to home, as well as remove any orders they do not want. But to remove any orders they dont want from this page alone, we would need js to dynamically change the final cost... If js doesnt work, stick to editing of the order by going back to home</div> -->
     <div class="top_banner">
-        <a href="/home">
-            <img id="back_button" src="../../static/back_button.jpg" alt="back_button">
+        <a href="/js_home">
+            <img id="home_button" src="../../static/home_button.jpg" alt="home_button">
         </a>
         <a href="/">
-            <img id="chimken_small_logo_centered" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
+            <img id="chimken_small_logo" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
         </a>
     </div>
-    <div>
-        {% for item in items_ordered %}
-            <p>{{ item }}</p>
-        {% endfor %}
+    <div class="order_details">
+        <div class="order_box" id="items_ordered">
+            <p class="col_label"> Item ordered </p>
+            {% for item in items_ordered %}
+                <p class="row_value">{{ item }}</p>
+            {% endfor %}
+        </div>
+        <div class="order_box" id="item_amts_ordered">
+            <p class="col_label"> Amount </p>
+            {% for amt in item_amts_ordered_filtered %}
+                <p class="row_value">{{ amt }}</p>
+            {% endfor %}
+        </div>
+        <div class="order_box" id="cost_list">
+            <p class="col_label"> Cost </p>
+            {% for price in price_list %}
+                <p class="row_value"> {{ price }} </p>
+            {% endfor %}
+        </div>
     </div>
-    <div>
-        {% for amt in item_amts_ordered_filtered %}
-            <p>{{ amt }}</p>
-        {% endfor %}
+    <div class="bottom_cost_row">
+        <p class="col_label total_cost_shi" id="total_cost_label"> Total Cost </p>
+        <p class="col_label total_cost_shi murney" id="total_cost_value">${{ total_cost }}</p>
     </div>
-    <div>
-        {% for price in price_list %}
-            <p> {{ price }} </p>
-        {% endfor %}
-    </div>
-    <div>
-        {{ total_cost }}
-    </div>
-    <form method="POST" action="/payment">
+    <form method="POST" action="/payment" id="hidden_form">
         <input type="hidden" name="items_ordered" value="{{ items_ordered }}">
+        <input type="hidden" name="item_amts_ordered_filtered" value="{{ item_amts_ordered_filtered }}">
         <input type="hidden" name="price_list" value="{{ price_list }}">
         <input type="hidden" name="total_cost" value="{{ total_cost }}">
-        <button type="submit">Go to Payment</button>
+        <input type="hidden" name="total_amts" value="{{ total_amts }}">
+        <button id="payment_button" type="submit">Go to Payment</button>
     </form>
 </body>
 </html>
