@@ -226,6 +226,8 @@ body.body_centered {
     background-color: black;
 }
 
+/* Confirmation.html */
+
 .order_success {
     margin-top: 100px;
     font-size: 20px;
@@ -246,6 +248,7 @@ body.body_centered {
 
 #order_status {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-top: 0;
 }
 
 .loading_dots {

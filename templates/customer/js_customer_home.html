@@ -15,8 +15,6 @@
         <a href="/">
             <img id="chimken_small_logo" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
         </a>
-        <h2 id="next_to_checkout">$<span id="initial_cost">0</span></h2>
-        <img id="checkout_icon" src="../../static/checkout_icon.jpg" alt="checkout_icon">
     </div>
     <div id="centering_the_fucking_white_form">
         <div class="food_tile">
@@ -26,7 +24,7 @@
             </h4>
             <div class="minus_plus_quantity">
                 <button class="minus_plus_button" id="decrease_SCR">-</button>
-                <span id="SCR_quantity">0</span>
+                <span id="SCR_quantity">{{SCR_quantity}}</span>
                 <button class="minus_plus_button" id="increase_SCR">+</button>
             </div>
         </div>
@@ -37,7 +35,7 @@
             </h4>
             <div class="minus_plus_quantity">
                 <button class="minus_plus_button" id="decrease_HSC">-</button>
-                <span id="HSC_quantity">0</span>
+                <span id="HSC_quantity">{{HSC_quantity}}</span>
                 <button class="minus_plus_button" id="increase_HSC">+</button>
             </div>
         </div>
@@ -48,10 +46,14 @@
             </h4>
             <div class="minus_plus_quantity">
                 <button class="minus_plus_button" id="decrease_WSC">-</button>
-                <span id="WSC_quantity">0</span>
+                <span id="WSC_quantity">{{WSC_quantity}}</span>
                 <button class="minus_plus_button" id="increase_WSC">+</button>
             </div>
         </div>
+    </div>
+    <div id="checkout_area">
+        <h2 id="next_to_checkout">$<span id="initial_cost">0</span></h2>
+        <img id="checkout_icon" src="../../static/checkout_icon.jpg" alt="checkout_icon">
     </div>
     <!-- hidden form here -->
     <form method="POST" action="/checkout" id="hidden_form">

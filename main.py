@@ -4,6 +4,18 @@ from flask import Flask, render_template, request
 from flask_socketio import SocketIO
 import ast
 from datetime import datetime, timedelta
+from google.cloud import firestore
+
+orders_db = firestore.Client()
+
+db_data = {
+    'order_ID': None,
+    'item_amts_ordered': None,
+    'total_cost': None,
+    'order_date': None,
+    'order_time': None
+}
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'not_the_actual_key'
@@ -26,9 +38,13 @@ def login():
 def home():
     return render_template('customer/customer_home.html')
 
+SCR_amt = 0
+HSC_amt = 0
+WSC_amt = 0
+
 @app.route('/js_home')
 def js_home():
-    return render_template('customer/js_customer_home.html')
+    return render_template('customer/js_customer_home.html', SCR_quantity = SCR_amt, HSC_quantity = HSC_amt, WSC_quantity = WSC_amt)
 
 
 # here is where the ngas can see what they ordered
@@ -36,8 +52,11 @@ def js_home():
 def checkout():
     if request.method == 'POST':
         steamed_chicken_rice_ordered = int(request.form.get('SCR_quantity'))
+        SCR_amt = steamed_chicken_rice_ordered
         half_steamed_chicken_ordered = int(request.form.get('HSC_quantity'))
+        HSC_amt = half_steamed_chicken_ordered
         whole_steamed_chicken_ordered = int(request.form.get('WSC_quantity'))
+        WSC_amt = whole_steamed_chicken_ordered
         total_cost = f"{float(request.form.get('initial_cost')):.2f}"
         item_amts_ordered = [steamed_chicken_rice_ordered, half_steamed_chicken_ordered, whole_steamed_chicken_ordered]
         items = ['Steamed Chicken Rice', 'Half Steamed Chicken', 'Whole Steamed Chicken']

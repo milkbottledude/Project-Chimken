@@ -6,6 +6,8 @@ const whole_steamed_chicken_price = 20;
 // total cost b4 gst and allat
 const initial_cost = document.getElementById('initial_cost')
 const checkout_button = document.getElementById('checkout_icon')
+const checkout_area = document.getElementById('checkout_area')
+
 
 // for steamed chicken rice
 const down_SCR = document.getElementById('decrease_SCR')
@@ -33,6 +35,10 @@ down_SCR.addEventListener('click', function() {
 up_SCR.addEventListener('click', function() {
     let current_SCR_quantity = parseInt(SCR_quantity.textContent)
     current_SCR_quantity += 1
+    checkout_area.style.border = '4px solid #ff3131'
+    setTimeout(() => {
+        checkout_area.style.border = '2px solid grey';
+    }, 400);
     SCR_quantity.textContent = current_SCR_quantity
 
     let current_cost = parseInt(initial_cost.textContent)
@@ -67,6 +73,10 @@ down_HSC.addEventListener('click', function() {
 up_HSC.addEventListener('click', function() {
     let current_HSC_quantity = parseInt(HSC_quantity.textContent)
     current_HSC_quantity += 1
+    checkout_area.style.border = '4px solid #ff3131'
+    setTimeout(() => {
+        checkout_area.style.border = '2px solid grey';
+    }, 400);
     HSC_quantity.textContent = current_HSC_quantity
 
     let current_cost = parseInt(initial_cost.textContent)
@@ -100,6 +110,10 @@ down_WSC.addEventListener('click', function() {
 up_WSC.addEventListener('click', function() {
     let current_WSC_quantity = parseInt(WSC_quantity.textContent)
     current_WSC_quantity += 1
+    checkout_area.style.border = '4px solid #ff3131'
+    setTimeout(() => {
+        checkout_area.style.border = '2px solid grey';
+    }, 400);
     WSC_quantity.textContent = current_WSC_quantity
 
     let current_cost = parseInt(initial_cost.textContent)
@@ -117,5 +131,6 @@ checkout_button.addEventListener('click', function() {
     document.getElementById('HSC_quantity_input').value = HSC_quantity.textContent;
     document.getElementById('WSC_quantity_input').value = WSC_quantity.textContent;
     document.getElementById('initial_cost_input').value = initial_cost.textContent;
+    checkout_button.classList.toggle('grow');
     hidden_form.submit();
 })
