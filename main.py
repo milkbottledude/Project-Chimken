@@ -5,16 +5,7 @@ from flask_socketio import SocketIO
 import ast
 from datetime import datetime, timedelta
 from google.cloud import firestore
-
-orders_db = firestore.Client()
-
-db_data = {
-    'order_ID': None,
-    'item_amts_ordered': None,
-    'total_cost': None,
-    'order_date': None,
-    'order_time': None
-}
+from zoneinfo import ZoneInfo
 
 
 app = Flask(__name__)
@@ -47,6 +38,18 @@ def js_home():
     return render_template('customer/js_customer_home.html', SCR_quantity = SCR_amt, HSC_quantity = HSC_amt, WSC_quantity = WSC_amt)
 
 
+# firestore database shi here
+orders_db = firestore.Client()
+
+db_data = {
+    'order_ID': None,
+    'item_amts_ordered': None,
+    'total_cost': None,
+    'order_datetime_obj': None,
+    'order_no': None,
+    'payment': 'NOT PAID'
+}
+
 # here is where the ngas can see what they ordered
 @app.route('/checkout', methods=['GET', 'POST']) # Maybe add a msg as well to say 'u hvnt ordered shi', but not yet focus on basics first
 def checkout():
@@ -62,6 +65,7 @@ def checkout():
         items = ['Steamed Chicken Rice', 'Half Steamed Chicken', 'Whole Steamed Chicken']
         items_ordered = []
         print(item_amts_ordered)
+        db_data['item_amts_ordered'] = item_amts_ordered # appending unfiltered item amts list to db dict here, n not at payment()
         for x in range(len(item_amts_ordered)):
             if item_amts_ordered[x] > 0:
                 items_ordered.append(items[x])
@@ -82,6 +86,7 @@ def checkout():
         return render_template('customer/js_customer_home.html')
 
 
+
 # here is where they scan the qr code and submit ss of paynow
 @app.route('/payment', methods=['POST'])
 def payment():
@@ -98,12 +103,28 @@ def payment():
     total_cost = request.form.get('total_cost')
     items_ordered = ast.literal_eval(request.form.get('items_ordered'))
     price_list = ast.literal_eval(request.form.get('price_list'))
-    order_datetime = datetime.now() + timedelta(hours=8)
-    order_datetime = order_datetime.strftime("%Y-%m-%d %H:%M:%S")
+    order_datetime_obj = datetime.now(ZoneInfo("Asia/Kuala_Lumpur"))
+    order_datetime = order_datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
     order_date = order_datetime.split(' ')[0]
     order_time = order_datetime.split(' ')[1]
     # 'APPEND ORDER DETAILS TO DATABASE CODE' HERE
-    return render_template('customer/payment.html', items_ordered = items_ordered, price_list = price_list, item_amts_ordered_filtered = item_amts_ordered_filtered, total_cost = total_cost, total_amts = total_amts, itemsss = itemidk, order_date = order_date, order_time = order_time)
+    order_no = 1
+    order_id_no = 1
+    # db_data['order_ID'] = '_'.join(['001', order_date]) # ONLY USE THIS IF DOCUMENT HAS NO ROWS YET
+    queryplan = orders_db.collection('SSL_orders').order_by('created_at', direction=firestore.Query.DESCENDING).limit(1)
+    queryresults = queryplan.stream()
+    latest_order = next(queryresults, None)
+    if latest_order:
+        latest_order = latest_order.to_dict()
+        order_id_no = latest_order['order_ID'] + 1
+        order_date = latest_order['order_datetime_obj'].date()
+        if order_date == datetime.now(ZoneInfo("Asia/Kuala_Lumpur")).date():
+            order_no = int(latest_order['order_no']) + 1
+    db_data['order_ID'] = str(order_id_no) + '_' + str(order_date)
+    db_data['total_cost'] = float(total_cost)
+    db_data['order_datetime_obj'] = order_datetime_obj
+
+    return render_template('customer/payment.html', items_ordered = items_ordered, price_list = price_list, item_amts_ordered_filtered = item_amts_ordered_filtered, order_no = order_no, total_cost = total_cost,total_amts = total_amts, itemsss = itemidk, order_date = order_date, order_time = order_time)
 
 # this will use socket.io to handle the form and send data to the admin dashboard
 
@@ -114,10 +135,17 @@ def confirmation():
     items_ordered = ast.literal_eval(request.form.get('items_ordered'))
     price_list = ast.literal_eval(request.form.get('price_list'))
     item_amts_ordered_filtered = ast.literal_eval(request.form.get('item_amts_ordered_filtered'))
-    total_cost = request.form.get('total_cost')
+    total_cost = db_data['total_cost']
+    order_no = request.form.get('order_no')
     order_date = request.form.get('order_date')
     order_time = request.form.get('order_time')
-    return render_template('customer/confirmation.html', items_ordered = items_ordered, price_list = price_list, item_amts_ordered_filtered = item_amts_ordered_filtered, total_cost = total_cost, order_date = order_date, order_time = order_time)
+    # SENDING ORDER DEETS TO DB
+    print('Sending order details to firestore db')
+    print(db_data)
+    # SEND REQUEST TO STALL-OWNER HOME TO FETCH ORDER DETAILS FROM DB      . ONLY OTHER TIME IT WILL FETCH FROM DB IS WHEN THEY LOG IN.
+    #                                                                 HERE
+    orders_db.collection('SSL_orders').document(db_data['order_ID']).set(db_data)
+    return render_template('customer/confirmation.html', items_ordered = items_ordered, price_list = price_list, item_amts_ordered_filtered = item_amts_ordered_filtered, total_cost = total_cost, order_no = order_no, order_date = order_date, order_time = order_time)
 
 # do stall owner stuff only after u finish all the customer stuff
 @app.route('/admin_home', methods=['POST'])
