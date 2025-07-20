@@ -65,6 +65,10 @@ body.login_page {
     background-color: #efe8dd;
 }
 
+.flying_fud_mobile {
+    display: none;
+}
+
 #checkout_area {
     display: flex;
     position: fixed;

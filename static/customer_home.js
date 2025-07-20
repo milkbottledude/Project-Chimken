@@ -4,15 +4,18 @@ const half_steamed_chicken_price = 15;
 const whole_steamed_chicken_price = 20;
 
 // total cost b4 gst and allat
-const initial_cost = document.getElementById('initial_cost')
-const checkout_button = document.getElementById('checkout_icon')
-const checkout_area = document.getElementById('checkout_area')
+const initial_cost = document.querySelector('#initial_cost')
+const checkout_button = document.querySelector('#checkout_icon')
+const checkout_area = document.querySelector('#checkout_area')
+const flying_scr = document.querySelector('.flying_scr')
+const flying_hsc = document.querySelector('.flying_hsc')
+const flying_wsc = document.querySelector('.flying_wsc')
 
 
 // for steamed chicken rice
-const down_SCR = document.getElementById('decrease_SCR')
-const up_SCR = document.getElementById('increase_SCR')
-const SCR_quantity = document.getElementById('SCR_quantity')
+const down_SCR = document.querySelector('#decrease_SCR')
+const up_SCR = document.querySelector('#increase_SCR')
+const SCR_quantity = document.querySelector('#SCR_quantity')
 
 down_SCR.addEventListener('click', function() {
     let current_SCR_quantity = parseInt(SCR_quantity.textContent)
@@ -38,13 +41,18 @@ up_SCR.addEventListener('click', function() {
     checkout_area.style.border = '4px solid #ff3131'
     setTimeout(() => {
         checkout_area.style.border = '2px solid grey';
-    }, 400);
+    }, 900);
     SCR_quantity.textContent = current_SCR_quantity
 
     let current_cost = parseInt(initial_cost.textContent)
     current_cost += steamed_chicken_rice_price
     initial_cost.textContent = current_cost
     checkout_button.style.display = 'block'
+
+    flying_scr.classList.add('fly_in');
+    setTimeout(function() {
+        flying_scr.classList.remove('fly_in');
+    }, 1000)
 })
 
 
@@ -76,13 +84,19 @@ up_HSC.addEventListener('click', function() {
     checkout_area.style.border = '4px solid #ff3131'
     setTimeout(() => {
         checkout_area.style.border = '2px solid grey';
-    }, 400);
+    }, 900);
     HSC_quantity.textContent = current_HSC_quantity
 
     let current_cost = parseInt(initial_cost.textContent)
     current_cost += half_steamed_chicken_price
     initial_cost.textContent = current_cost
     checkout_button.style.display = 'block'
+
+    flying_hsc.classList.add('fly_in');
+    setTimeout(function() {
+        flying_hsc.classList.remove('fly_in');
+    }, 1000)
+
 })
 
 // for whole steamed chicken
@@ -113,13 +127,18 @@ up_WSC.addEventListener('click', function() {
     checkout_area.style.border = '4px solid #ff3131'
     setTimeout(() => {
         checkout_area.style.border = '2px solid grey';
-    }, 400);
+    }, 900);
     WSC_quantity.textContent = current_WSC_quantity
 
     let current_cost = parseInt(initial_cost.textContent)
     current_cost += whole_steamed_chicken_price
     initial_cost.textContent = current_cost
     checkout_button.style.display = 'block'
+
+    flying_wsc.classList.add('fly_in');
+    setTimeout(function() {
+        flying_wsc.classList.remove('fly_in');
+    }, 1000)
 })
 
 // for pressing checkout and passing on hidden form
