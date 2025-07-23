@@ -11,6 +11,9 @@ const flying_scr = document.querySelector('.flying_scr')
 const flying_hsc = document.querySelector('.flying_hsc')
 const flying_wsc = document.querySelector('.flying_wsc')
 
+if (initial_cost.textContent > 0) {
+    checkout_button.style.display ='block'
+}
 
 // for steamed chicken rice
 const down_SCR = document.querySelector('#decrease_SCR')
@@ -153,3 +156,4 @@ checkout_button.addEventListener('click', function() {
     checkout_button.classList.toggle('grow');
     hidden_form.submit();
 })
+

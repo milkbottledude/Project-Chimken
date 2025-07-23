@@ -165,7 +165,17 @@ body.body_centered {
     position: absolute;
     left: 15px;
     top: 9px;
+    transition: all 0.2s ease-out;
 }
+
+#home_button:hover {
+    width: 35px;
+}
+
+#home_button:active {
+    filter: brightness(80%);
+}
+
 
 .order_details {
     margin: 0 auto;
@@ -175,20 +185,22 @@ body.body_centered {
     background-color: lightyellow;
     width: 80%;
     border: 1px solid grey;
+    border-radius: 19px;
 }
 
 .order_box {
-    margin: 35px;
+    margin: 0 35px;
+    margin-bottom: 0;
     text-align: left;
 }
 
 .col_label {
     font-weight: bold;
-    height: 2em;
+    height: 1em;
 }
 
 .row_value {
-    height: 2em;
+    height: 4em;
 }
 
 #item_amts_ordered {
@@ -227,30 +239,95 @@ body.body_centered {
 }
 
 #payment_button {
-    margin: 0px 25px;
+    margin: 0px 49px;
     margin-top: auto;
     margin-bottom: 10px;
     font-size: 15px;
     background-color: #ff3131;
     color: #efe8dd;
     padding: 10px 20px;
-    border-radius: 2px;
+    border-radius: 12px;
     border: none;
     border-bottom: 1px solid black;
+    transition: all 0.2s ease-out;          
+}
+
+#payment_button:hover {
+    font-size: 17px;
+}
+
+#payment_button:active {
+    filter: brightness(80%);
 }
 
 /* Payment CSS */
+
+#what_time_you_want {
+    font-size: 20px;
+    margin-top: 95px;
+}
+
+#order_time_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 5px auto;
+}
+
+.change_min {
+    font-size: 20px;
+    margin-left: 35px;
+    padding: 0 10px;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+#increase_min {
+    transform: rotate(180deg);
+}
+
+#time_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.collect_order_time {
+    border: 2px solid black;
+    width: 2em;
+    font-size: 25px;
+    margin: 5px 5px;
+    background: none;
+}
+
+#order_time_hour {
+    margin-right: 0;
+}
+
+#order_time_colon {
+    border: none;
+    margin: 5px 0;
+    padding: 0px 0px;
+}
+
+#order_time_min {
+    width: 2em;
+    margin-left: 0;
+}
+
+#order_time_ampm {
+    width: 2.5em;
+}
 
 #paynow_cost_container{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 75px;
     font-size: 17px;
 }
 
 #paynow_cost {
-    margin-top: 40px;
+    margin-top: 17px;
     font-size: 29px;
     margin-left: 12px;
     color: rgb(248, 64, 8);

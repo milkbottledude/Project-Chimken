@@ -6,15 +6,13 @@
     <meta name="description" content="here is where we will calculate the user's bill and write out their order for them to check">
     <title>Chimken Checkout</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&display=swap" rel="stylesheet">
-    <link href="../../static/mobile.css" rel="stylesheet" media="screen and (max-width: 900px)">
-    <link href="../../static/styles.css" rel="stylesheet" media="screen and (min-width: 900px)">
+    <link href="../../static/mobile.css" rel="stylesheet" media="screen and (max-width: 800px)">
+    <link href="../../static/styles.css" rel="stylesheet" media="screen and (min-width: 800px)">
 </head>
 <body class="body_centered">
     <!-- should add some options for them to go back to home, as well as remove any orders they do not want. But to remove any orders they dont want from this page alone, we would need js to dynamically change the final cost... If js doesnt work, stick to editing of the order by going back to home</div> -->
     <div class="top_banner">
-        <a href="/js_home">
-            <img id="home_button" src="../../static/home_button.jpg" alt="home_button">
-        </a>
+        <img id="home_button" src="../../static/home_button.jpg" alt="home_button">
         <a href="/">
             <img id="chimken_small_logo" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
         </a>
@@ -43,13 +41,19 @@
         <p class="col_label total_cost_shi" id="total_cost_label"> Total Cost </p>
         <p class="col_label total_cost_shi murney" id="total_cost_value">${{ total_cost }}</p>
     </div>
-    <form method="POST" action="/payment" id="hidden_form">
+    <form method="POST" action="/payment" id="payment_hidden_form">
         <input type="hidden" name="items_ordered" value="{{ items_ordered }}">
+        <input type="hidden" name="item_amts_ordered" value="{{ item_amts_ordered }}">
         <input type="hidden" name="item_amts_ordered_filtered" value="{{ item_amts_ordered_filtered }}">
         <input type="hidden" name="price_list" value="{{ price_list }}">
         <input type="hidden" name="total_cost" value="{{ total_cost }}">
         <input type="hidden" name="total_amts" value="{{ total_amts }}">
         <button id="payment_button" type="submit">Go to Payment</button>
     </form>
+    <form method="POST" action="/js_home" id="remember_order">
+        <input type="hidden" name="item_amts_ordered" value="{{ item_amts_ordered }}">
+        <input type="hidden" name="total_cost" value="{{ total_cost }}">
+    </form>
+    <script src="../../static/checkout_and_payment.js"></script>
 </body>
 </html>

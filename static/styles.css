@@ -199,6 +199,7 @@ body.body_centered {
     background-color: lightyellow;
     width: 800px;
     border: 1px solid grey;
+    border-radius: 19px;
 }
 
 .order_box {
@@ -222,10 +223,10 @@ body.body_centered {
     display: flex;
     justify-content: center;
     border: 1px solid grey;
-    border-top: none;
     width: 800px;
     margin: 0 auto;
     margin-bottom: 40px;
+    border-radius: 19px;
 }
 
 .total_cost_shi {
@@ -238,6 +239,7 @@ body.body_centered {
     color: #efe8dd;
     background-color: #ff3131;
     font-size: 15px;
+    border-radius: 19px;
 }
 
 
@@ -245,11 +247,55 @@ body.body_centered {
 
 /* Payment CSS */
 
+#what_time_you_want {
+    margin-top: 95px;
+}
+
+#order_time_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#increase_min {
+    transform: rotate(180deg)
+}
+
+#time_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.collect_order_time {
+    font-size: 20px;
+    border: 2px solid black;
+    width: 2em;
+    font-size: 15px;
+    margin: 5px 5px;
+}
+
+#order_time_hour {
+    width: 1em;
+}
+
+#order_time_colon {
+    border: none;
+    margin: none;
+}
+
+#order_time_min {
+    width: 2em;
+}
+
+#order_time_ampm {
+    width: 3em;
+}
+
 #paynow_cost_container{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 75px;
     font-size: 17px;
 }
 

@@ -25,17 +25,34 @@ def login():
     return render_template('login.html')
 
 # add python code for home below
-@app.route('/old_home')
-def home():
-    return render_template('customer/customer_home.html')
-
 SCR_amt = 0
 HSC_amt = 0
 WSC_amt = 0
+initial_cost = 0
 
-@app.route('/js_home')
+
+@app.route('/js_home', methods=['GET', 'POST'])
 def js_home():
-    return render_template('customer/js_customer_home.html', SCR_quantity = SCR_amt, HSC_quantity = HSC_amt, WSC_quantity = WSC_amt)
+    global SCR_amt, HSC_amt, WSC_amt, initial_cost
+    if request.method == 'POST':
+        print('u')
+        print('u')
+        print('u')
+        print('u')
+        print('u')
+        print('u')
+        print('u')
+        print('u')
+        print(request.form.get('item_amts_ordered'))
+        amts = ast.literal_eval(request.form.get('item_amts_ordered'))
+        initial_cost = request.form.get('total_cost')[:-3]
+        SCR_amt = amts[0]
+        HSC_amt = amts[1]
+        WSC_amt = amts[2]
+        print(SCR_amt, HSC_amt, WSC_amt)
+    else:
+        print('its get NIGAAAA')
+    return render_template('customer/js_customer_home.html', SCR_quantity = SCR_amt, HSC_quantity = HSC_amt, WSC_quantity = WSC_amt, initial_cost = initial_cost)
 
 
 # firestore database shi here
@@ -80,7 +97,7 @@ def checkout():
         print(item_amts_ordered_filtered)
         total_amts = sum(item_amts_ordered_filtered)
         print(total_amts)
-        return render_template('customer/checkout.html', items_ordered = items_ordered, price_list = price_list, total_cost = total_cost, item_amts_ordered_filtered = item_amts_ordered_filtered)
+        return render_template('customer/checkout.html', items_ordered = items_ordered, price_list = price_list, total_cost = total_cost, item_amts_ordered_filtered = item_amts_ordered_filtered, item_amts_ordered = item_amts_ordered)
     else:
         print('its get')
         return render_template('customer/js_customer_home.html')
@@ -91,6 +108,7 @@ def checkout():
 @app.route('/payment', methods=['POST'])
 def payment():
     itemidk = 'items'
+    item_amts_ordered = ast.literal_eval(request.form.get('item_amts_ordered'))
     # use this ast thingie to convert '[3, 1]' into an actual list [3, 1]
     item_amts_ordered_filtered = ast.literal_eval(request.form.get('item_amts_ordered_filtered'))
     print(item_amts_ordered_filtered)
@@ -124,7 +142,7 @@ def payment():
     db_data['total_cost'] = float(total_cost)
     db_data['order_datetime_obj'] = order_datetime_obj
 
-    return render_template('customer/payment.html', items_ordered = items_ordered, price_list = price_list, item_amts_ordered_filtered = item_amts_ordered_filtered, order_no = order_no, total_cost = total_cost,total_amts = total_amts, itemsss = itemidk, order_date = order_date, order_time = order_time)
+    return render_template('customer/payment.html', items_ordered = items_ordered, price_list = price_list, item_amts_ordered_filtered = item_amts_ordered_filtered, order_no = order_no, total_cost = total_cost,total_amts = total_amts, itemsss = itemidk, order_date = order_date, order_time = order_time, item_amts_ordered = item_amts_ordered)
 
 # this will use socket.io to handle the form and send data to the admin dashboard
 

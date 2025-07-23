@@ -13,9 +13,7 @@
     Once submitted, will bring them to another page, think ill name it 'confirmation.html'. First, it will be 'checking ss validity' or 'checking for payment'.
     then once checked by YOLO or owner, will change to 'payment is successful! order has been sent through and will be 'completed shortly' OR 'in 5mins', see if owner want to implement smth liddat. -->
     <div class="top_banner">
-        <a href="/checkout">
-            <img id="home_button" src="../../static/home_button.jpg" alt="home_button">
-        </a>
+        <img id="home_button" src="../../static/home_button.jpg" alt="home_button">
         <a href="/">
             <img id="chimken_small_logo" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
         </a>
@@ -35,25 +33,62 @@
             <h4 class="column_cost">$180.00</h4>
         </div>
     </div> -->
-    <div id="paynow_cost_container">
-        <p>Total ({{total_amts}} {{itemsss}}): </p>
-        <p class='murney col_label' id='paynow_cost'>${{ total_cost }}</p>
-    </div>
-    <div class="paynow_qr_container">
-        <p> Please scan below to pay with Paynow </p>
-        <div id="paynow_qr_placeholder"></div>
-        <!-- <img id="paynow_qrcode" src="" alt="paynow_qrcode"> -->
+    <p id="what_time_you_want">Choose your time of collection:</p>
+    <div class="order_time_container">
+        <button class="change_min" id="increase_min">v</button>
+        <div id="time_container">
+            <select class="collect_order_time" name="order_time_hour" id="order_time_hour">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+            <!-- <div class="collect_order_time" id="order_time_hour">0</div> -->
+            <p class="collect_order_time" id="order_time_colon">:</p>
+            <div class="collect_order_time" id="order_time_minute">00</div>
+            <select class="collect_order_time" name="order_time_ampm"id="order_time_ampm">
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+            </select>
+        </div>
+        <button class="change_min" id="decrease_min">v</button>
     </div>
     <div>
-        <p>After paying, please wait while we process your payment</p>
         <form method="POST" action="/confirmation" id="hidden_form">
+            <div id="paynow_cost_container">
+                <p>Total ({{total_amts}} {{itemsss}}): </p>
+                <p class='murney col_label' id='paynow_cost'>${{ total_cost }}</p>
+            </div>
+            <div class="paynow_qr_container">
+                <p> Please scan below to pay with Paynow </p>
+                <div id="paynow_qr_placeholder"></div>
+                <!-- <img id="paynow_qrcode" src="" alt="paynow_qrcode"> -->
+            </div>
+            <input type="hidden" name="order_time_hour_input" value="" id="order_time_hour_input">
+            <input type="hidden" name="order_time_minute_input" value="" id="order_time_minute_input">
+            <input type="hidden" name="order_time_ampm_input" value="" id="order_time_ampm_input">
             <input type="hidden" name="items_ordered" value="{{ items_ordered }}">
+            <input type="hidden" name="item_amts_ordered" value="{{ item_amts_ordered }}">
             <input type="hidden" name="item_amts_ordered_filtered" value="{{ item_amts_ordered_filtered }}">
             <input type="hidden" name="price_list" value="{{ price_list }}">
             <input type="hidden" name="order_no" value="{{ order_no }}">
             <input type="hidden" name="order_time" value="{{ order_time }}">
             <input type="hidden" name="order_date" value="{{ order_date }}">
-            <button id="confirmation_button" type="submit">(DEMO) Yes I have paid </button>
+            <input type="hidden" name="total_cost" value="{{ total_cost }}">
+            <p>Payment is based on trust, please be honest :) </p>
+            <button id="confirmation_button" type="submit"> Yes I have paid </button>
+        </form>
+        <form method="POST" action="/js_home" id="remember_order">
+            <input type="hidden" name="item_amts_ordered" value="{{ item_amts_ordered }}" id="item_amts_ordered_remember">
+            <input type="hidden" name="total_cost" value="{{ total_cost }}" id="total_cost_remember">
         </form>
     </div>
     <!-- <form id="payment_form"> IF CAN GET DBS RAPID API FOR CHEAP, THEN DONT NEED THIS
@@ -72,5 +107,6 @@
     </form> -->
 
     <!-- IF I GET THE DBS RAPID API, CAN HAVE THE API SIMPLY SEND A REQUEST TO confirmation.html WITHOUT HAVING TO DO ANYTH FROM payment.html. but need to figure out how to change html without doing anyth -->
+    <script src="../../static/checkout_and_payment.js"></script>
 </body>
 </html>
