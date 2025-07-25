@@ -257,6 +257,15 @@ body.body_centered {
     justify-content: center;
 }
 
+
+.change_min {
+    font-size: 20px;
+    margin-left: 27px;
+    padding: 0 10px;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
 #increase_min {
     transform: rotate(180deg)
 }
@@ -268,28 +277,33 @@ body.body_centered {
 }
 
 .collect_order_time {
-    font-size: 20px;
+    font-size: 24px;
     border: 2px solid black;
     width: 2em;
-    font-size: 15px;
     margin: 5px 5px;
+    background: none;
 }
 
 #order_time_hour {
-    width: 1em;
+    margin-right: 0;
+    width: 2em;
 }
 
 #order_time_colon {
     border: none;
-    margin: none;
+    margin: 5px 0;
+    padding: 0px 0px;
 }
 
 #order_time_min {
+    padding-left: 3px;
     width: 2em;
+    margin-left: 0;
+    letter-spacing: 0.2em;
 }
 
 #order_time_ampm {
-    width: 3em;
+    width: 2.5em;
 }
 
 #paynow_cost_container{
@@ -297,6 +311,7 @@ body.body_centered {
     justify-content: center;
     align-items: center;
     font-size: 17px;
+    padding: 0px;
 }
 
 #paynow_cost {
@@ -311,10 +326,18 @@ body.body_centered {
 }
 
 #paynow_qr_placeholder {
-    margin: 60px auto;
-    width: 100px;
-    height: 100px;
-    background-color: black;
+    margin: 30px auto;
+    width: 250px;
+    height: 250px;
+    border: 2px solid black;
+}
+
+#confirmation_button {
+    font-size: 15px;
+    margin: 35px;
+    border-radius: 15px;
+    padding: 5px 10px;
+    border: 1px solid black;
 }
 
 /* Confirmation.html */

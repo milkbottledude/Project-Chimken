@@ -276,7 +276,7 @@ body.body_centered {
 
 .change_min {
     font-size: 20px;
-    margin-left: 35px;
+    margin-left: 25px;
     padding: 0 10px;
     border: 1px solid black;
     border-radius: 15px;
@@ -312,7 +312,9 @@ body.body_centered {
 
 #order_time_min {
     width: 2em;
+    letter-spacing: 0.2em;
     margin-left: 0;
+    padding-left: 2px;
 }
 
 #order_time_ampm {
@@ -339,9 +341,17 @@ body.body_centered {
 
 #paynow_qr_placeholder {
     margin: 40px auto;
-    width: 100px;
-    height: 100px;
-    background-color: black;
+    width: 200px;
+    height: 200px;
+    border: 2px solid black
+}
+
+#confirmation_button {
+    font-size: 15px;
+    margin: 35px;
+    border-radius: 15px;
+    padding: 5px 10px;
+    border: 1px solid black;
 }
 
 /* Confirmation.html */
