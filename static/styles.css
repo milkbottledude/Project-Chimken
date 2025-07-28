@@ -13,7 +13,7 @@ body {
 
 .login_buttons {
     display: inline-block;
-    margin: 1%;
+    margin: 25px;
     margin-left: 9%;
     text-decoration: none;
     color: #efe8dd;
@@ -22,8 +22,33 @@ body {
     padding-right: 1%;
     background-color: #ff3131;
     border-radius: 10px;
-    font-size: large;
+    font-size: 20px;
+    transition: all 0.2s ease-out;
+    border: none;
 }
+
+.login_buttons:hover {
+    margin: 22px;
+    margin-left: 9%;
+    font-size: 22px;
+}
+
+.login_buttons:active {
+    filter: brightness(80%);
+}
+
+#enter_hawker_id {
+    opacity: 0;
+    margin: 25px 0;
+    font-size: 24px;
+    transition: all 0.4s ease-out;
+} 
+
+#enter_hawker_id.appear {
+    opacity: 1;
+    margin-left: 9%;
+}
+
 
 .bottom_text_div {
     position: absolute;
@@ -51,6 +76,7 @@ body {
     width: 100%;
     border-bottom: 5px solid #ff3131;
     background-color: #efe8dd;
+    z-index: 1;
 }
 
 .flying_scr {
@@ -93,6 +119,7 @@ body {
     border-radius: 25px;
     border: 2px solid grey;  
     transition: all 0.1s ease;
+    z-index: 2;
 }
 
 #next_to_checkout {
@@ -242,7 +269,13 @@ body.body_centered {
     border-radius: 19px;
 }
 
+#payment_button:hover {
+    font-size: 17px;
+}
 
+#payment_button:active {
+    filter: brightness(80%);
+}
 
 
 /* Payment CSS */
@@ -266,8 +299,16 @@ body.body_centered {
     border-radius: 15px;
 }
 
+.change_min:hover {
+    font-size: 24px;
+}
+
+.change_min:active {
+    filter: brightness(80%);
+}
+
 #increase_min {
-    transform: rotate(180deg)
+    transform: rotate(180deg);
 }
 
 #time_container {
@@ -284,25 +325,25 @@ body.body_centered {
     background: none;
 }
 
-#order_time_hour {
+#collection_hour {
     margin-right: 0;
     width: 2em;
 }
 
-#order_time_colon {
+#collection_colon {
     border: none;
     margin: 5px 0;
     padding: 0px 0px;
 }
 
-#order_time_min {
+#collection_minute {
     padding-left: 3px;
     width: 2em;
     margin-left: 0;
     letter-spacing: 0.2em;
 }
 
-#order_time_ampm {
+#collection_ampm {
     width: 2.5em;
 }
 
@@ -338,6 +379,14 @@ body.body_centered {
     border-radius: 15px;
     padding: 5px 10px;
     border: 1px solid black;
+}
+
+#confirmation_button:hover {
+    font-size: 17px;
+}
+
+#confirmation_button:active {
+    filter: brightness(80%);
 }
 
 /* Confirmation.html */
@@ -377,8 +426,9 @@ body.body_centered {
     font-size: 20px;
 }
 
-#timer {
-    font-size: 29px;
+#collection_time {
+    font-size: 39px;
+    font-weight: 200;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 

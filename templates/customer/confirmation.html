@@ -11,7 +11,9 @@
     </head>
 <body class="body_centered">
     <div class="top_banner">
-        <img id="home_button" src="../../static/home_button.jpg" alt="home_button">
+        <a href="/js_home">
+            <img id="home_button" src="../../static/home_button.jpg" alt="home_button">
+        </a>
         <a href="/">
             <img id="chimken_small_logo" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
         </a>
@@ -26,9 +28,9 @@
             <span class='loading_dots' id="third_dot">.</span>
         </p>
         <div class="time_to_fud">
-            <p id="collect_in">Please collect in: </p>
-            <div id="timer">
-                04:00
+            <p id="collect_in">Please collect at: </p>
+            <div id="collection_time">
+                {{ collection_hour }} : {{ collection_minute }} {{ collection_ampm }}
             </div>
         </div>
     </div>
@@ -71,10 +73,6 @@
         </div>
         <p id="THANKU"> THANK YOU AND COME AGAIN</p>
     </div>
-    <form method="POST" action="/js_home" id="remember_order">
-        <input type="hidden" name="item_amts_ordered" value="{{ item_amts_ordered }}" id="item_amts_ordered_remember">
-        <input type="hidden" name="total_cost" value="{{ total_cost }}" id="total_cost_remember">
-    </form>
-    <script src="../../static/checkout_and_co.js"></script>
+    <!-- <script src="../../static/checkout_and_co.js"></script> -->
 </body>
 </html>

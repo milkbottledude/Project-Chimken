@@ -50,6 +50,19 @@
                 <button class="minus_plus_button" id="increase_WSC">+</button>
             </div>
         </div>
+
+        <div class="food_tile">
+            <img class="food_image" src="../../static/SSL_half_steamed_chicken.jpg" alt="Packet of Rice">
+            <h4 class="food_price_and_name">
+                <span class="food_price murney">$1</span>Rice Packet
+            </h4>
+            <div class="minus_plus_quantity">
+                <button class="minus_plus_button" id="decrease_RP">-</button>
+                <span id="RP_quantity">{{RP_quantity}}</span>
+                <button class="minus_plus_button" id="increase_RP">+</button>
+            </div>
+        </div>
+
     </div>
     <img src="../../static/SSL_steamed_chicken_rice.jpg" alt="flying_chicken_rice" class="flying_scr flying_fud flying_fud_mobile">
     <img src="../../static/SSL_whole_steamed_chicken.jpg" alt="flying_chicken_rice" class="flying_hsc flying_fud flying_fud_mobile">
@@ -63,6 +76,7 @@
         <input type="hidden" name="SCR_quantity" value="" id="SCR_quantity_input">
         <input type="hidden" name="HSC_quantity" value="" id="HSC_quantity_input">
         <input type="hidden" name="WSC_quantity" value="" id="WSC_quantity_input">
+        <input type="hidden" name="RP_quantity" value="" id="RP_quantity_input">
         <input type="hidden" name="initial_cost" value="" id="initial_cost_input">
     </form>
     <script src="../../static/customer_home.js"></script>

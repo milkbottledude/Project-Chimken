@@ -2,6 +2,7 @@
 const steamed_chicken_rice_price = 5;
 const half_steamed_chicken_price = 15;
 const whole_steamed_chicken_price = 20;
+const rice_packet_price = 1
 
 // total cost b4 gst and allat
 const initial_cost = document.querySelector('#initial_cost')
@@ -144,6 +145,55 @@ up_WSC.addEventListener('click', function() {
     }, 1000)
 })
 
+
+
+
+// for rice packet
+const down_RP = document.getElementById('decrease_RP')
+const up_RP = document.getElementById('increase_RP')
+const RP_quantity = document.getElementById('RP_quantity')
+
+down_RP.addEventListener('click', function() {
+    let current_RP_quantity = parseInt(RP_quantity.textContent)
+
+    if (current_RP_quantity > 0) {
+        current_RP_quantity -= 1
+        RP_quantity.textContent = current_RP_quantity
+
+        let current_cost = parseInt(initial_cost.textContent)
+        current_cost -= rice_packet_price
+        initial_cost.textContent = current_cost
+
+        if (current_cost == 0) {
+            checkout_button.style.display ='none'
+        }
+    }
+})
+
+up_RP.addEventListener('click', function() {
+    let current_RP_quantity = parseInt(RP_quantity.textContent)
+    current_RP_quantity += 1
+    checkout_area.style.border = '4px solid #ff3131'
+    setTimeout(() => {
+        checkout_area.style.border = '2px solid grey';
+    }, 900);
+    RP_quantity.textContent = current_RP_quantity
+
+    let current_cost = parseInt(initial_cost.textContent)
+    current_cost += rice_packet_price
+    initial_cost.textContent = current_cost
+    checkout_button.style.display = 'block'
+
+    flying_wsc.classList.add('fly_in');
+    setTimeout(function() {
+        flying_wsc.classList.remove('fly_in');
+    }, 1000)
+})
+
+
+
+
+
 // for pressing checkout and passing on hidden form
 
 const hidden_form = document.getElementById('hidden_form')
@@ -152,6 +202,7 @@ checkout_button.addEventListener('click', function() {
     document.getElementById('SCR_quantity_input').value = SCR_quantity.textContent;
     document.getElementById('HSC_quantity_input').value = HSC_quantity.textContent;
     document.getElementById('WSC_quantity_input').value = WSC_quantity.textContent;
+    document.getElementById('RP_quantity_input').value = RP_quantity.textContent;
     document.getElementById('initial_cost_input').value = initial_cost.textContent;
     checkout_button.classList.toggle('grow');
     hidden_form.submit();

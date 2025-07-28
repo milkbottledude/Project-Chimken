@@ -37,7 +37,7 @@
     <div class="order_time_container">
         <button class="change_min" id="increase_min">v</button>
         <div id="time_container">
-            <select class="collect_order_time" name="order_time_hour" id="order_time_hour">
+            <select class="collect_order_time" name="collection_hour" id="collection_hour">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -52,9 +52,9 @@
                 <option value="12">12</option>
             </select>
             <!-- <div class="collect_order_time" id="order_time_hour">0</div> -->
-            <p class="collect_order_time" id="order_time_colon">:</p>
-            <div class="collect_order_time" id="order_time_min">00</div>
-            <select class="collect_order_time" name="order_time_ampm"id="order_time_ampm">
+            <p class="collect_order_time" id="collection_colon">:</p>
+            <div class="collect_order_time" id="collection_minute">00</div>
+            <select class="collect_order_time" id="collection_ampm">
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>
             </select>
@@ -72,9 +72,9 @@
                 <div id="paynow_qr_placeholder"></div>
                 <!-- <img id="paynow_qrcode" src="" alt="paynow_qrcode"> -->
             </div>
-            <input type="hidden" name="order_time_hour_input" value="" id="order_time_hour_input">
-            <input type="hidden" name="order_time_minute_input" value="" id="order_time_minute_input">
-            <input type="hidden" name="order_time_ampm_input" value="" id="order_time_ampm_input">
+            <input type="hidden" name="collection_hour_input" value="empty_hour" id="collection_hour_input">
+            <input type="hidden" name="collection_minute_input" value="empty_minute" id="collection_minute_input">
+            <input type="hidden" name="collection_ampm_input" value="empty ampm" id="collection_ampm_input">
             <input type="hidden" name="items_ordered" value="{{ items_ordered }}">
             <input type="hidden" name="item_amts_ordered" value="{{ item_amts_ordered }}">
             <input type="hidden" name="item_amts_ordered_filtered" value="{{ item_amts_ordered_filtered }}">
@@ -108,6 +108,6 @@
     </form> -->
 
     <!-- IF I GET THE DBS RAPID API, CAN HAVE THE API SIMPLY SEND A REQUEST TO confirmation.html WITHOUT HAVING TO DO ANYTH FROM payment.html. but need to figure out how to change html without doing anyth -->
-    <script src="../../static/checkout_and_payment.js"></script>
+    <script src="../../static/checkout_and_co.js"></script>
 </body>
 </html>
