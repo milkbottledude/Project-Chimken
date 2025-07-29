@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="../../static/mobile.css" rel="stylesheet" media="screen and (max-width:900px)">
+    <link href="../../static/styles.css" rel="stylesheet" media="screen and (min-width:900px)">
 </head>
 <body>
-  <div> {{ order }} </div>
+  <div class="top_banner">
+    <a href="/">
+        <img id="chimken_small_logo" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
+    </a>
+  </div>
+  <div class="hello_user_container">
+    Hello, <span id="hello_user"> Mr.  {{name}} </span>
+  </div>
+  <img src="../../static/bit_unc_v1.png" id="admin_profile_pic" alt="SSL_pic">
+  <div id="orders"> HIIIIIIIIIIIIIIII lets goooo </div>
+  <script src="../../static/dashboard.js"></script>
 </body>
 </html>

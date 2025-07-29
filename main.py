@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from flask import Flask, render_template, request, session, redirect
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, emit
 import ast
 from datetime import datetime, timedelta
 from google.cloud import firestore
@@ -44,20 +44,7 @@ def js_home():
     global SCR_amt, HSC_amt, WSC_amt, RP_amt, initial_cost
     if request.method == 'POST':
         print('its posttttttttttttttttttttttttttttttt')
-        print('bruhhhhhhh')
-        print('bruhhhhhhh')
-        print('bruhhhhhhh')
-        print('bruhhhhhhh')
-        print('bruhhhhhhh')
-        print('bruhhhhhhh')
         print(request.form.get('item_amts_ordered'))
-        print('bruhhhhhhh')
-        print('bruhhhhhhh')
-        print('bruhhhhhhh')
-        print('bruhhhhhhh')
-        print('bruhhhhhhh')
-        print('bruhhhhhhh')
-        print('bruhhhhhhh')
         amts = ast.literal_eval(request.form.get('item_amts_ordered'))
         initial_cost = request.form.get('total_cost')[:-3]
         SCR_amt = amts[0]
@@ -84,7 +71,14 @@ db_data = {
     'total_cost': None,
     'order_datetime_obj': None,
     'order_no': None,
-    'payment': 'NOT PAID'
+    # 'payment': 'NOT PAID'
+}
+
+dashboard_data = {
+    'order_no': None,
+    'items_ordered': None,
+    'item_amts_filtered': None,
+    'total_cost': None,
 }
 
 # here is where the ngas can see what they ordered
@@ -113,6 +107,11 @@ def checkout():
             price_list.append(item_price)
         item_amts_ordered_filtered = [x for x in item_amts_ordered if x > 0]
         print(item_amts_ordered_filtered)
+        # adding to dashboard dict
+        dashboard_data['item_amts_filtered'] = item_amts_ordered_filtered
+        dashboard_data['items_ordered'] = items_ordered
+        dashboard_data['total_cost'] = total_cost
+
         total_amts = sum(item_amts_ordered_filtered)
         print(total_amts)
         return render_template('customer/checkout.html', items_ordered = items_ordered, price_list = price_list, total_cost = total_cost, item_amts_ordered_filtered = item_amts_ordered_filtered, item_amts_ordered = item_amts_ordered)
@@ -159,6 +158,7 @@ def payment():
             order_date = latest_order['order_datetime_obj'].date()
             if order_date == datetime.now(ZoneInfo("Asia/Kuala_Lumpur")).date():
                 order_no = int(latest_order['order_no']) + 1
+        dashboard_data['order_no'] = order_no
         db_data['order_ID'] = str(order_id_no) + '_' + str(order_date)
         db_data['total_cost'] = float(total_cost)
         db_data['order_datetime_obj'] = order_datetime_obj
@@ -179,12 +179,6 @@ def confirmation():
         collection_ampm = request.form.get('collection_ampm_input')
         print('CHECK COLLECTION TIME HEREEEEEEEEEEEEEEEEEEE')
         print(collection_hour, collection_minute, collection_ampm)
-        print('hi')
-        print('hi')
-        print('hi')
-        print('hi')
-        print('hi')
-        print('hi')
         items_ordered = ast.literal_eval(request.form.get('items_ordered'))
         price_list = ast.literal_eval(request.form.get('price_list'))
         item_amts_ordered_filtered = ast.literal_eval(request.form.get('item_amts_ordered_filtered'))
@@ -197,15 +191,16 @@ def confirmation():
         print(db_data)
         # SEND REQUEST TO STALL-OWNER HOME TO FETCH ORDER DETAILS FROM DB      . ONLY OTHER TIME IT WILL FETCH FROM DB IS WHEN THEY LOG IN.
         #                                                                 HERE
+        socketio.emit('new_order', dashboard_data, namespace='/admin')
         orders_db.collection('SSL_orders').document(db_data['order_ID']).set(db_data)
         return render_template('customer/confirmation.html', items_ordered = items_ordered, price_list = price_list, item_amts_ordered_filtered = item_amts_ordered_filtered, total_cost = total_cost, order_no = order_no, order_date = order_date, order_time = order_time, collection_hour = collection_hour, collection_minute = collection_minute, collection_ampm = collection_ampm)
 
 
 SSL_password = 'SSL01'
+SSL_name = 'Sing Soon Lee'
 # do stall owner stuff only after u finish all the customer stuff
 @app.route('/admin_home', methods=['GET', 'POST'])
 def admin_home():
-    # global SSL_password
     if request.method == 'POST':
         hawker_id = request.form.get('hawker_id_input')
         if hawker_id == SSL_password:
@@ -214,7 +209,7 @@ def admin_home():
         else:
             return render_template('login.html', invalid_id = True)
     if session.get('is_admin'):
-        return render_template('admin/dashboard.html')
+        return render_template('admin/dashboard.html', name = SSL_name)
     else:
         return redirect('/')
 
