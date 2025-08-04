@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+    <!-- flask-socketio script link -->
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <!-- flask-socketio script link -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link href="../../static/mobile.css" rel="stylesheet" media="screen and (max-width:900px)">
-    <link href="../../static/styles.css" rel="stylesheet" media="screen and (min-width:900px)">
+    <link href="../static/mobile.css" rel="stylesheet" media="screen and (max-width:900px)">
+    <link href="../static/styles.css" rel="stylesheet" media="screen and (min-width:900px)">
 </head>
 <body>
   <div class="top_banner">
@@ -19,7 +21,10 @@
     Hello, <span id="hello_user"> Mr.  {{name}} </span>
   </div>
   <img src="../../static/bit_unc_v1.png" id="admin_profile_pic" alt="SSL_pic">
-  <div id="orders"> HIIIIIIIIIIIIIIII lets goooo </div>
-  <script src="../../static/dashboard.js"></script>
+  <div id="orders">
+    HIIIIIIIIIIIIIIII lets goooo
+    <p> ppp tag </p>
+  </div>
+  <script src="../static/dashboard.js"></script>
 </body>
 </html>

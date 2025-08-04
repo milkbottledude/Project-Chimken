@@ -1,9 +1,10 @@
 runtime: python313
 
-entrypoint: gunicorn -b :$PORT main:app
+# entrypoint: gunicorn -b :$PORT main:app
+entrypoint: gunicorn -k eventlet -w 1 -b :$PORT main:app
 
 env_variables:
-  GAE_ENV: 'standard'
+  GAE_ENV: flex
 
 handlers:
   - url: /static

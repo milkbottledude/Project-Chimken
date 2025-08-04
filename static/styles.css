@@ -62,43 +62,34 @@ body {
     color: black;
 }
 
-/* Admin Dashboard CSS */
+/* Dashboard CSS */
 
 .hello_user_container {
     position: fixed;
-    top: 25px;
-    right: 85px;
-    z-index: 2;
+    top: 15px;
+    right: 71px;
+    font-size: 21px;
+    z-index: 3;
 }
 
 #hello_user {
-    font-size: 19px;
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 22px;
 }
 
 #admin_profile_pic {
-    width: 40px;
-    border-radius: 19px;
     position: fixed;
-    top: 15px;
-    right: 25px;
-    z-index: 2;
+    top: 10px;
+    right: 10px;
     border: 2px solid black;
-    transition: all 0.2s ease-out;
-}
-
-#admin_profile_pic:hover {
-    width: 44px;
+    border-radius: 20px;
+    width: 40px;
+    z-index: 3;
 }
 
 #orders {
-    margin-top: 100px;
+    margin-top: 80px;
 }
-
-
-
-
-
 
 
 /* Customer Home CSS */

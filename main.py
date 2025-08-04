@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from flask import Flask, render_template, request, session, redirect
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, send
 import ast
 from datetime import datetime, timedelta
 from google.cloud import firestore
@@ -10,7 +10,10 @@ from zoneinfo import ZoneInfo
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'not_the_actual_key'
-socketio = SocketIO(app)
+socketio = SocketIO(
+    app, cors_allowed_origins=["https://5000-cs-700308306001-default.cs-asia-southeast1-fork.cloudshell.dev"
+])
+
 
 stall_phone_number = None
 
@@ -23,6 +26,7 @@ item_prices = {
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
+    print('ajimaru-ajimaru')
     invalid_id = False
     if invalid_id:
         print('wrong IDDDDDDDDDDDDD')
@@ -30,8 +34,33 @@ def login():
     else:
         return render_template('login.html')
 
+# Hawker Admin home below
+SSL_password = 'SSL01'
+SSL_name = 'Sing Soon Lee'
+# do stall owner stuff only after u finish all the customer stuff
+@app.route('/admin_home', methods=['GET', 'POST'])
+def admin_home():
+    if request.method == 'POST':
+        hawker_id = request.form.get('hawker_id_input')
+        if hawker_id == SSL_password:
+            session['is_admin'] = True
+            return redirect('/admin_home')
+        else:
+            return render_template('login.html', invalid_id = True)
+    if session.get('is_admin'):
+        return render_template('dashboard.html', name = SSL_name)
+    else:
+        return redirect('/')
 
-# add python code for home below
+# hawker dashboard side, for receiving socket signals
+@socketio.on('order', namespace='/admin')
+def handle_order(order_data):
+    print('Received order:', order_data)
+
+
+
+
+# add python code for customer home below
 SCR_amt = 0
 HSC_amt = 0
 WSC_amt = 0
@@ -75,11 +104,12 @@ db_data = {
 }
 
 dashboard_data = {
-    'order_no': None,
-    'items_ordered': None,
-    'item_amts_filtered': None,
-    'total_cost': None,
+    'order_no': 111,
+    'items_ordered': 222,
+    'item_amts_filtered': 333,
+    'total_cost': 444,
 }
+
 
 # here is where the ngas can see what they ordered
 @app.route('/checkout', methods=['GET', 'POST']) # Maybe add a msg as well to say 'u hvnt ordered shi', but not yet focus on basics first
@@ -111,6 +141,17 @@ def checkout():
         dashboard_data['item_amts_filtered'] = item_amts_ordered_filtered
         dashboard_data['items_ordered'] = items_ordered
         dashboard_data['total_cost'] = total_cost
+
+        # to be moved further down when deploying app
+
+        go_db = ''
+        for key, value in dashboard_data.items():
+            go_db = go_db + key + ': ' + str(value) + ', '         
+        print('SOCKETINGGGGGGGGGGGGGGGGGGG')
+        socketio.send(go_db, namespace='/admin')
+        print('SOCKETeeeeeeeeeeeeeD')
+
+
 
         total_amts = sum(item_amts_ordered_filtered)
         print(total_amts)
@@ -159,6 +200,10 @@ def payment():
             if order_date == datetime.now(ZoneInfo("Asia/Kuala_Lumpur")).date():
                 order_no = int(latest_order['order_no']) + 1
         dashboard_data['order_no'] = order_no
+        # socketing to dashboard.js to display in dashboard.html
+        # print('SOCKETINGGGGGGGGGGGGGGGGGGG')
+        # socketio.send(dashboard_data, namespace='/admin')
+        # print('SOCKETeeeeeeeeeeeeeD')
         db_data['order_ID'] = str(order_id_no) + '_' + str(order_date)
         db_data['total_cost'] = float(total_cost)
         db_data['order_datetime_obj'] = order_datetime_obj
@@ -191,28 +236,10 @@ def confirmation():
         print(db_data)
         # SEND REQUEST TO STALL-OWNER HOME TO FETCH ORDER DETAILS FROM DB      . ONLY OTHER TIME IT WILL FETCH FROM DB IS WHEN THEY LOG IN.
         #                                                                 HERE
-        socketio.emit('new_order', dashboard_data, namespace='/admin')
+        # socketio.emit('new_order', dashboard_data, namespace='/admin')
         orders_db.collection('SSL_orders').document(db_data['order_ID']).set(db_data)
         return render_template('customer/confirmation.html', items_ordered = items_ordered, price_list = price_list, item_amts_ordered_filtered = item_amts_ordered_filtered, total_cost = total_cost, order_no = order_no, order_date = order_date, order_time = order_time, collection_hour = collection_hour, collection_minute = collection_minute, collection_ampm = collection_ampm)
 
 
-SSL_password = 'SSL01'
-SSL_name = 'Sing Soon Lee'
-# do stall owner stuff only after u finish all the customer stuff
-@app.route('/admin_home', methods=['GET', 'POST'])
-def admin_home():
-    if request.method == 'POST':
-        hawker_id = request.form.get('hawker_id_input')
-        if hawker_id == SSL_password:
-            session['is_admin'] = True
-            return redirect('/admin_home')
-        else:
-            return render_template('login.html', invalid_id = True)
-    if session.get('is_admin'):
-        return render_template('admin/dashboard.html', name = SSL_name)
-    else:
-        return redirect('/')
-
-
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, debug=True)
