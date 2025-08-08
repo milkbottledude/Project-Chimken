@@ -65,6 +65,39 @@ body.login_page {
     color: black;
 }
 
+/* Dashboard CSS */
+
+.hello_user_container {
+    position: fixed;
+    top: 15px;
+    right: 71px;
+    font-size: 21px;
+    z-index: 3;
+}
+
+#hello_user {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 22px;
+}
+
+#admin_profile_pic {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    border: 2px solid black;
+    border-radius: 20px;
+    width: 40px;
+    z-index: 3;
+}
+
+#orders {
+    margin-top: 80px;
+}
+
+.dashboard_order {
+    border: 2px solid black;
+}
+
 
 /* Customer Home CSS */
 

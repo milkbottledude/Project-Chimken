@@ -104,10 +104,9 @@ db_data = {
 }
 
 dashboard_data = {
-    'order_no': 111,
-    'items_ordered': 222,
-    'item_amts_filtered': 333,
-    'total_cost': 444,
+    'Order Number': 111,
+    'Items Ordered': 222,
+    'Total Cost': 444,
 }
 
 
@@ -138,23 +137,34 @@ def checkout():
         item_amts_ordered_filtered = [x for x in item_amts_ordered if x > 0]
         print(item_amts_ordered_filtered)
         # adding to dashboard dict
-        dashboard_data['item_amts_filtered'] = item_amts_ordered_filtered
-        dashboard_data['items_ordered'] = items_ordered
-        dashboard_data['total_cost'] = total_cost
+        dashboard_data['Items Ordered'] = items_ordered.copy()
+        dashboard_data['Total Cost'] = total_cost
+        print('AGHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
+        print(items_ordered)
+        print('AGHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
+
+        for i in range(len(item_amts_ordered_filtered)):
+            item = items_ordered[i]
+            item_amt = str(item_amts_ordered_filtered[i])
+            dashboard_data['Items Ordered'][i] = item + ' - ' + item_amt
+        print('AGHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
+        print(items_ordered)
+        print('AGHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
+
 
         # to be moved further down when deploying app
 
         go_db = ''
         for key, value in dashboard_data.items():
-            go_db = go_db + key + ': ' + str(value) + ', '         
+            if key == 'Items Ordered':
+                value = ', '.join(value)
+            key = key.replace('_', ' ')
+            go_db = go_db + key + ': ' + str(value) + '_'
+        print(go_db)
         print('SOCKETINGGGGGGGGGGGGGGGGGGG')
-        socketio.send(go_db, namespace='/admin')
+        socketio.send(go_db[:-1], namespace='/admin')
         print('SOCKETeeeeeeeeeeeeeD')
-
-
-
         total_amts = sum(item_amts_ordered_filtered)
-        print(total_amts)
         return render_template('customer/checkout.html', items_ordered = items_ordered, price_list = price_list, total_cost = total_cost, item_amts_ordered_filtered = item_amts_ordered_filtered, item_amts_ordered = item_amts_ordered)
     else:
         print('its get')
@@ -199,7 +209,7 @@ def payment():
             order_date = latest_order['order_datetime_obj'].date()
             if order_date == datetime.now(ZoneInfo("Asia/Kuala_Lumpur")).date():
                 order_no = int(latest_order['order_no']) + 1
-        dashboard_data['order_no'] = order_no
+        dashboard_data['Order_Number'] = order_no
         # socketing to dashboard.js to display in dashboard.html
         # print('SOCKETINGGGGGGGGGGGGGGGGGGG')
         # socketio.send(dashboard_data, namespace='/admin')
@@ -242,4 +252,4 @@ def confirmation():
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, host="0.0.0.0", port=5000, debug=True)
