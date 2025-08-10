@@ -1,7 +1,7 @@
 runtime: python313
 
 # entrypoint: gunicorn -b :$PORT main:app
-entrypoint: gunicorn -k eventlet -w 1 -b :$PORT main:app
+entrypoint: gunicorn -k sync -w 1 -b :$PORT main:app
 
 env_variables:
   GAE_ENV: flex

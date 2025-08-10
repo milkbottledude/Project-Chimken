@@ -11,8 +11,14 @@ from zoneinfo import ZoneInfo
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'not_the_actual_key'
 socketio = SocketIO(
-    app, cors_allowed_origins=["https://5000-cs-700308306001-default.cs-asia-southeast1-fork.cloudshell.dev"
-])
+    app,
+    async_mode='threading',
+    cors_allowed_origins=["https://xenon-height-425100-i6.et.r.appspot.com"]
+)
+# print(f"SocketIO async mode: {socketio.async_mode}")
+# print('NIGAAAAAAAAAAA')
+
+# cors_allowed_origins=["https://5000-cs-700308306001-default.cs-asia-southeast1-fork.cloudshell.dev"]
 
 
 stall_phone_number = None
@@ -113,6 +119,21 @@ dashboard_data = {
 # here is where the ngas can see what they ordered
 @app.route('/checkout', methods=['GET', 'POST']) # Maybe add a msg as well to say 'u hvnt ordered shi', but not yet focus on basics first
 def checkout():
+
+# threading over eventlet works, yay
+    # try:
+    #     print("Starting Firestore query...")
+    #     queryplan = orders_db.collection('SSL_orders').order_by('order_datetime_obj', direction=firestore.Query.DESCENDING).limit(1)
+    #     print('balls')
+    #     queryresults = queryplan.get(timeout=10)  # 10 second timeout
+    #     print(f"Query completed. Found {len(queryresults)} results")
+    #     latest_order = queryresults[0] if queryresults else None
+    #     print("Query successful")
+    # except Exception as e:
+    #     print(f"Query error: {e}")
+    #     latest_order = None
+
+
     if request.method == 'POST':
         SCR_amt = int(request.form.get('SCR_quantity'))
         HSC_amt = int(request.form.get('HSC_quantity'))
@@ -148,22 +169,8 @@ def checkout():
             item_amt = str(item_amts_ordered_filtered[i])
             dashboard_data['Items Ordered'][i] = item + ' - ' + item_amt
         print('AGHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
-        print(items_ordered)
+        print(item_amts_ordered)
         print('AGHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
-
-
-        # to be moved further down when deploying app
-
-        go_db = ''
-        for key, value in dashboard_data.items():
-            if key == 'Items Ordered':
-                value = ', '.join(value)
-            key = key.replace('_', ' ')
-            go_db = go_db + key + ': ' + str(value) + '_'
-        print(go_db)
-        print('SOCKETINGGGGGGGGGGGGGGGGGGG')
-        socketio.send(go_db[:-1], namespace='/admin')
-        print('SOCKETeeeeeeeeeeeeeD')
         total_amts = sum(item_amts_ordered_filtered)
         return render_template('customer/checkout.html', items_ordered = items_ordered, price_list = price_list, total_cost = total_cost, item_amts_ordered_filtered = item_amts_ordered_filtered, item_amts_ordered = item_amts_ordered)
     else:
@@ -199,21 +206,25 @@ def payment():
         # 'APPEND ORDER DETAILS TO DATABASE CODE' HERE
         order_no = 1
         order_id_no = 1
+
+
         # db_data['order_ID'] = '_'.join(['001', order_date]) # ONLY USE THIS IF DOCUMENT HAS NO ROWS YET
-        queryplan = orders_db.collection('SSL_orders').order_by('created_at', direction=firestore.Query.DESCENDING).limit(1)
-        queryresults = queryplan.stream()
-        latest_order = next(queryresults, None)
-        if latest_order:
-            latest_order = latest_order.to_dict()
-            order_id_no = latest_order['order_ID'] + 1
-            order_date = latest_order['order_datetime_obj'].date()
-            if order_date == datetime.now(ZoneInfo("Asia/Kuala_Lumpur")).date():
-                order_no = int(latest_order['order_no']) + 1
+                                            # queryplan = orders_db.collection('SSL_orders').order_by('order_datetime_obj', direction=firestore.Query.DESCENDING).limit(1)
+                                            # queryresults = queryplan.get()
+                                            # latest_order = queryresults[0]
+                                            # if latest_order:
+                                            #     latest_order = latest_order.to_dict()
+                                            #     order_id_no = str(int(latest_order['order_ID'][0]) + 1) + latest_order['order_ID'][1:]
+                                            #     order_date = latest_order['order_datetime_obj'].date()
+                                            #     if order_date == datetime.now(ZoneInfo("Asia/Kuala_Lumpur")).date():
+                                            #         order_no = int(latest_order['order_no']) + 1
+        # FUCKKKKKKKKK YOUUUUUUUUUUUU FIRESTOREEEEEEEEEEEEEEEEEE
+
+
+
+
+
         dashboard_data['Order_Number'] = order_no
-        # socketing to dashboard.js to display in dashboard.html
-        # print('SOCKETINGGGGGGGGGGGGGGGGGGG')
-        # socketio.send(dashboard_data, namespace='/admin')
-        # print('SOCKETeeeeeeeeeeeeeD')
         db_data['order_ID'] = str(order_id_no) + '_' + str(order_date)
         db_data['total_cost'] = float(total_cost)
         db_data['order_datetime_obj'] = order_datetime_obj
@@ -246,8 +257,28 @@ def confirmation():
         print(db_data)
         # SEND REQUEST TO STALL-OWNER HOME TO FETCH ORDER DETAILS FROM DB      . ONLY OTHER TIME IT WILL FETCH FROM DB IS WHEN THEY LOG IN.
         #                                                                 HERE
+        
+        # to be moved further down to confirmation.html when deploying app
+
+        go_db = ''
+        for key, value in dashboard_data.items():
+            if key == 'Items Ordered':
+                value = ', '.join(value)
+            key = key.replace('_', ' ')
+            go_db = go_db + key + ': ' + str(value) + '_'
+        print(go_db)
+        print('SOCKETINGGGGGGGGGGGGGGGGGGG')
+        socketio.send(go_db[:-1], namespace='/admin')
+        print('SOCKETeeeeeeeeeeeeeD')        
         # socketio.emit('new_order', dashboard_data, namespace='/admin')
-        orders_db.collection('SSL_orders').document(db_data['order_ID']).set(db_data)
+
+
+# FUCKKKKKK FIRESTOREEEEE
+                                # orders_db.collection('SSL_orders').document(db_data['order_ID']).set(db_data)
+                                # print('Order details sent to firestore db')
+
+
+
         return render_template('customer/confirmation.html', items_ordered = items_ordered, price_list = price_list, item_amts_ordered_filtered = item_amts_ordered_filtered, total_cost = total_cost, order_no = order_no, order_date = order_date, order_time = order_time, collection_hour = collection_hour, collection_minute = collection_minute, collection_ampm = collection_ampm)
 
 
