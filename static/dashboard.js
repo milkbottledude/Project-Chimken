@@ -25,7 +25,7 @@ socket.on('message', (msg) => {
     var newdiv = document.createElement('div');
     newdiv.classList.add('dashboard_order');
     msg_array = msg.split('_')
-    for (i = 0; i <= 2; i++) {
+    for (i = 0; i <= 3; i++) {
       var newp = document.createElement('p');
       msg_part = msg_array[i];
       if (i == 1) {

@@ -13,12 +13,14 @@ app.config['SECRET_KEY'] = 'not_the_actual_key'
 socketio = SocketIO(
     app,
     async_mode='threading',
+    # cors_allowed_origins=["https://5000-cs-700308306001-default.cs-asia-southeast1-fork.cloudshell.dev"],
     cors_allowed_origins=["https://xenon-height-425100-i6.et.r.appspot.com"]
 )
 # print(f"SocketIO async mode: {socketio.async_mode}")
 # print('NIGAAAAAAAAAAA')
 
 # cors_allowed_origins=["https://5000-cs-700308306001-default.cs-asia-southeast1-fork.cloudshell.dev"]
+# cors_allowed_origins=["https://xenon-height-425100-i6.et.r.appspot.com"]
 
 
 stall_phone_number = None
@@ -64,8 +66,6 @@ def handle_order(order_data):
     print('Received order:', order_data)
 
 
-
-
 # add python code for customer home below
 SCR_amt = 0
 HSC_amt = 0
@@ -105,14 +105,17 @@ db_data = {
     'item_amts_ordered': None,
     'total_cost': None,
     'order_datetime_obj': None,
+    'date_obj': None,
+    'time_obj': None,
     'order_no': None,
-    # 'payment': 'NOT PAID'
+    'payment': None
 }
 
 dashboard_data = {
     'Order Number': 111,
     'Items Ordered': 222,
     'Total Cost': 444,
+    'Collection Time': 555
 }
 
 
@@ -140,6 +143,7 @@ def checkout():
         WSC_amt = int(request.form.get('WSC_quantity'))
         RP_amt = int(request.form.get('RP_quantity'))
         total_cost = f"{float(request.form.get('initial_cost')):.2f}"
+        db_data['total_cost'] = total_cost
         item_amts_ordered = [SCR_amt, HSC_amt, WSC_amt, RP_amt]
         items = ['Steamed Chicken Rice', 'Half Steamed Chicken', 'Whole Steamed Chicken', 'Rice Packet']
         items_ordered = []
@@ -203,33 +207,10 @@ def payment():
         order_datetime = order_datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
         order_date = order_datetime.split(' ')[0]
         order_time = order_datetime.split(' ')[1]
-        # 'APPEND ORDER DETAILS TO DATABASE CODE' HERE
-        order_no = 1
-        order_id_no = 1
+        db_data['date_obj'] = order_date
+        db_data['time_obj'] = order_time
 
-
-        # db_data['order_ID'] = '_'.join(['001', order_date]) # ONLY USE THIS IF DOCUMENT HAS NO ROWS YET
-                                            # queryplan = orders_db.collection('SSL_orders').order_by('order_datetime_obj', direction=firestore.Query.DESCENDING).limit(1)
-                                            # queryresults = queryplan.get()
-                                            # latest_order = queryresults[0]
-                                            # if latest_order:
-                                            #     latest_order = latest_order.to_dict()
-                                            #     order_id_no = str(int(latest_order['order_ID'][0]) + 1) + latest_order['order_ID'][1:]
-                                            #     order_date = latest_order['order_datetime_obj'].date()
-                                            #     if order_date == datetime.now(ZoneInfo("Asia/Kuala_Lumpur")).date():
-                                            #         order_no = int(latest_order['order_no']) + 1
-        # FUCKKKKKKKKK YOUUUUUUUUUUUU FIRESTOREEEEEEEEEEEEEEEEEE
-
-
-
-
-
-        dashboard_data['Order_Number'] = order_no
-        db_data['order_ID'] = str(order_id_no) + '_' + str(order_date)
-        db_data['total_cost'] = float(total_cost)
-        db_data['order_datetime_obj'] = order_datetime_obj
-
-        return render_template('customer/payment.html', items_ordered = items_ordered, price_list = price_list, item_amts_ordered_filtered = item_amts_ordered_filtered, order_no = order_no, total_cost = total_cost,total_amts = total_amts, itemsss = itemidk, order_date = order_date, order_time = order_time, item_amts_ordered = item_amts_ordered)
+        return render_template('customer/payment.html', items_ordered = items_ordered, price_list = price_list, item_amts_ordered_filtered = item_amts_ordered_filtered, total_cost = total_cost, total_amts = total_amts, itemsss = itemidk, order_date = order_date, order_time = order_time, item_amts_ordered = item_amts_ordered)
 
 # this will use socket.io to handle the form and send data to the admin dashboard
 
@@ -243,6 +224,8 @@ def confirmation():
         collection_hour = request.form.get('collection_hour_input')
         collection_minute = request.form.get('collection_minute_input')
         collection_ampm = request.form.get('collection_ampm_input')
+        dashboard_data['Collection Time'] = f'{collection_hour}:{collection_minute} {collection_ampm}'
+        db_data['collection_time'] = f'{collection_hour}:{collection_minute} {collection_ampm}'
         print('CHECK COLLECTION TIME HEREEEEEEEEEEEEEEEEEEE')
         print(collection_hour, collection_minute, collection_ampm)
         items_ordered = ast.literal_eval(request.form.get('items_ordered'))
@@ -252,17 +235,43 @@ def confirmation():
         order_no = request.form.get('order_no')
         order_date = request.form.get('order_date')
         order_time = request.form.get('order_time')
+
+
+        # GETTING ORDER NUMBER FROM DB      .
+        #                               HERE
+        order_no = 1
+        order_id_no = 1
+        order_datetime_obj = datetime.now(ZoneInfo("Asia/Kuala_Lumpur"))
+        queryplan = orders_db.collection('SSL_orders').order_by('order_datetime_obj', direction=firestore.Query.DESCENDING).limit(1)
+        queryresults = queryplan.get()
+        latest_order = queryresults[0]
+        if latest_order:
+            latest_order = latest_order.to_dict()
+            print('LATESTTTTTTTTTTTTTT ORDER FROM DB')
+            print(latest_order)
+            order_id_no = str(int(latest_order['order_ID'][0]) + 1)
+            order_date = latest_order['order_datetime_obj'].date()
+            current_date = order_datetime_obj.date()
+            if order_date == current_date:
+                order_no = int(latest_order['order_no']) + 1
+        dashboard_data['Order Number'] = order_no
+        db_data['order_no'] = order_no
+        db_data['order_ID'] = str(order_id_no) + '_' + str(current_date)
+        db_data['order_datetime_obj'] = order_datetime_obj
+        db_data['payment'] = 'NOT APPROVED'
+
         # SENDING ORDER DEETS TO DB
         print('Sending order details to firestore db')
         print(db_data)
-        # SEND REQUEST TO STALL-OWNER HOME TO FETCH ORDER DETAILS FROM DB      . ONLY OTHER TIME IT WILL FETCH FROM DB IS WHEN THEY LOG IN.
-        #                                                                 HERE
-        
-        # to be moved further down to confirmation.html when deploying app
+        orders_db.collection('SSL_orders').document(db_data['order_ID']).set(db_data)
+        print('Order details sent to firestore db')
 
+
+        # dashboard code below, to be moved further down to confirmation.html when deploying app (DONE)
         go_db = ''
         for key, value in dashboard_data.items():
             if key == 'Items Ordered':
+                print(value)
                 value = ', '.join(value)
             key = key.replace('_', ' ')
             go_db = go_db + key + ': ' + str(value) + '_'
@@ -270,13 +279,6 @@ def confirmation():
         print('SOCKETINGGGGGGGGGGGGGGGGGGG')
         socketio.send(go_db[:-1], namespace='/admin')
         print('SOCKETeeeeeeeeeeeeeD')        
-        # socketio.emit('new_order', dashboard_data, namespace='/admin')
-
-
-# FUCKKKKKK FIRESTOREEEEE
-                                # orders_db.collection('SSL_orders').document(db_data['order_ID']).set(db_data)
-                                # print('Order details sent to firestore db')
-
 
 
         return render_template('customer/confirmation.html', items_ordered = items_ordered, price_list = price_list, item_amts_ordered_filtered = item_amts_ordered_filtered, total_cost = total_cost, order_no = order_no, order_date = order_date, order_time = order_time, collection_hour = collection_hour, collection_minute = collection_minute, collection_ampm = collection_ampm)
