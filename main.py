@@ -57,7 +57,7 @@ def admin_home():
         print('ADMINNNNNNN DETECTEDDDDDDDDDDDDDDDD')
         mass_queryplan = (orders_db.collection('SSL_orders')
                     .where('date_str', '==', date.today().strftime("%Y-%m-%d"))
-                    .order_by('time_str', direction=firestore.Query.DESCENDING))
+                    .order_by('time_str', direction=firestore.Query.ASCENDING))
 
         mass_docs = mass_queryplan.get() # TRY .STREAM AS WELL, SEE IF IT WORKS, COS STREAM SUPPOSED TO BE MORE EFFICIENT, LOADS 1 AT A TIME
         print(mass_docs)
