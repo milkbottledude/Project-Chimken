@@ -12,6 +12,7 @@
     <link href="../static/styles.css" rel="stylesheet" media="screen and (min-width:900px)">
 </head>
 <body>
+  <div id="data-holder" data-msg-list='{{ lesgo_dbs_list | tojson | safe }}' style="display:none;"></div>
   <div class="top_banner">
     <a href="/">
         <img id="chimken_small_logo" src="../../static/Chimken_logo.jpg" alt="chimken_main_logo">
@@ -22,8 +23,11 @@
   </div>
   <img src="../../static/bit_unc_v1.png" id="admin_profile_pic" alt="SSL_pic">
   <div id="all_orders">
-    <div id="orders">nig</div>
-    <div id="not_impt_orders">nig</div>
+    <div id="orders">
+    </div>
+    <div id="not_impt_orders">
+      nig
+    </div>
   </div>
   <script src="../static/dashboard.js"></script>
 </body>

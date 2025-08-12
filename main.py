@@ -3,7 +3,7 @@ import numpy as np
 from flask import Flask, render_template, request, session, redirect
 from flask_socketio import SocketIO, send
 import ast
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from google.cloud import firestore
 from zoneinfo import ZoneInfo
 
@@ -13,15 +13,10 @@ app.config['SECRET_KEY'] = 'not_the_actual_key'
 socketio = SocketIO(
     app,
     async_mode='threading',
-    # cors_allowed_origins=["https://5000-cs-700308306001-default.cs-asia-southeast1-fork.cloudshell.dev"],
-    cors_allowed_origins=["https://xenon-height-425100-i6.et.r.appspot.com"]
+    cors_allowed_origins=["https://5000-cs-700308306001-default.cs-asia-southeast1-fork.cloudshell.dev", "https://xenon-height-425100-i6.et.r.appspot.com"]
 )
 # print(f"SocketIO async mode: {socketio.async_mode}")
 # print('NIGAAAAAAAAAAA')
-
-# cors_allowed_origins=["https://5000-cs-700308306001-default.cs-asia-southeast1-fork.cloudshell.dev"]
-# cors_allowed_origins=["https://xenon-height-425100-i6.et.r.appspot.com"]
-
 
 stall_phone_number = None
 
@@ -31,6 +26,9 @@ item_prices = {
     'Whole Steamed Chicken': 20.00,
     'Rice Packet': 1.00
 }
+
+items = ['Steamed Chicken Rice', 'Half Steamed Chicken', 'Whole Steamed Chicken', 'Rice Packet']
+
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -56,7 +54,44 @@ def admin_home():
         else:
             return render_template('login.html', invalid_id = True)
     if session.get('is_admin'):
-        return render_template('dashboard.html', name = SSL_name)
+        print('ADMINNNNNNN DETECTEDDDDDDDDDDDDDDDD')
+        mass_queryplan = (orders_db.collection('SSL_orders')
+                    .where('date_str', '==', date.today().strftime("%Y-%m-%d"))
+                    .order_by('time_str', direction=firestore.Query.DESCENDING))
+
+        mass_docs = mass_queryplan.get() # TRY .STREAM AS WELL, SEE IF IT WORKS, COS STREAM SUPPOSED TO BE MORE EFFICIENT, LOADS 1 AT A TIME
+        print(mass_docs)
+        lesgo_dbs_list = []
+        for doc in mass_docs:
+            doc_dict = doc.to_dict()
+
+            ISSIT_REALLY_A_DICT = {
+                'Order Number': 666,
+                'Items Ordered': 777,
+                'Total Cost': 888,
+                'Collection Time': 999            
+            }
+
+            ISSIT_REALLY_A_DICT['Order Number'] = doc_dict['order_no']
+            ISSIT_REALLY_A_DICT['Items Ordered'] = doc_dict['item_amts_ordered']
+            ISSIT_REALLY_A_DICT['Total Cost'] = doc_dict['total_cost']
+            ISSIT_REALLY_A_DICT['Collection Time'] = doc_dict['collection_time']
+            print('assigned values to issitdict yuhhhhhhhhhhh')
+            print(ISSIT_REALLY_A_DICT)
+
+            # ASSIGN DOC_DICT VALUES TO ISSITRLLYDICT continueeeeeeeeeeeeheree
+
+            lesgo_db = ''
+            for key, value in ISSIT_REALLY_A_DICT.items():
+                if key == 'Items Ordered':
+                    print(value)
+                    value = ', '.join(value)
+                key = key.replace('_', ' ')
+                lesgo_db = lesgo_db + key + ': ' + str(value) + '_'
+            print(lesgo_db)
+            lesgo_dbs_list.append(lesgo_db[:-1])
+
+        return render_template('dashboard.html', name = SSL_name, lesgo_dbs_list = lesgo_dbs_list)
     else:
         return redirect('/')
 
@@ -102,11 +137,11 @@ orders_db = firestore.Client()
 
 db_data = {
     'order_ID': None,
-    'item_amts_ordered': None,
+    'item_amts_ordered': [],
     'total_cost': None,
     'order_datetime_obj': None,
-    'date_obj': None,
-    'time_obj': None,
+    'date_str': None,
+    'time_str': None,
     'order_no': None,
     'payment': None
 }
@@ -145,10 +180,8 @@ def checkout():
         total_cost = f"{float(request.form.get('initial_cost')):.2f}"
         db_data['total_cost'] = total_cost
         item_amts_ordered = [SCR_amt, HSC_amt, WSC_amt, RP_amt]
-        items = ['Steamed Chicken Rice', 'Half Steamed Chicken', 'Whole Steamed Chicken', 'Rice Packet']
         items_ordered = []
         print(item_amts_ordered)
-        db_data['item_amts_ordered'] = item_amts_ordered # appending unfiltered item amts list to db dict here, n not at payment()
         for x in range(len(item_amts_ordered)):
             if item_amts_ordered[x] > 0:
                 items_ordered.append(items[x])
@@ -172,6 +205,7 @@ def checkout():
             item = items_ordered[i]
             item_amt = str(item_amts_ordered_filtered[i])
             dashboard_data['Items Ordered'][i] = item + ' - ' + item_amt
+            db_data['item_amts_ordered'].append(item + ' - ' + item_amt)
         print('AGHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
         print(item_amts_ordered)
         print('AGHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
@@ -207,8 +241,8 @@ def payment():
         order_datetime = order_datetime_obj.strftime("%Y-%m-%d %H:%M:%S")
         order_date = order_datetime.split(' ')[0]
         order_time = order_datetime.split(' ')[1]
-        db_data['date_obj'] = order_date
-        db_data['time_obj'] = order_time
+        db_data['date_str'] = order_date
+        db_data['time_str'] = order_time
 
         return render_template('customer/payment.html', items_ordered = items_ordered, price_list = price_list, item_amts_ordered_filtered = item_amts_ordered_filtered, total_cost = total_cost, total_amts = total_amts, itemsss = itemidk, order_date = order_date, order_time = order_time, item_amts_ordered = item_amts_ordered)
 

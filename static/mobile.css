@@ -90,14 +90,34 @@ body.login_page {
     z-index: 3;
 }
 
+#all_orders {
+    display: flex;
+    flex-direction: row;
+}
+
 #orders {
+    margin-top: 80px;
+    width: 50%;
+}
+
+#not_impt_orders {
     margin-top: 80px;
 }
 
 .dashboard_order {
+    padding: 0px 5px;
     border: 2px solid black;
+    margin-bottom: 20px;
 }
 
+.order_p {
+    border: 2px solid pink;
+}
+
+.blocked {
+    display: block;
+    margin-left: 40px;
+}
 
 /* Customer Home CSS */
 
