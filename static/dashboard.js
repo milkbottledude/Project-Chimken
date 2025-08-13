@@ -30,9 +30,9 @@ function to_dashboard(single_msg) {
   console.log('child appended');
 }
 
-// for (m = 0; m <= msgList.length; m++) {
-//   to_dashboard(msgList[m]);
-// }
+for (m = 0; m < msgList.length; m++) {
+  to_dashboard(msgList[m]);
+}
 
 
 // flask-socketio shi below

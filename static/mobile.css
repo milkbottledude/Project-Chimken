@@ -480,6 +480,11 @@ body.body_centered {
     font-weight: 400;
 }
 
+#screenshot_prompt {
+    font-size: 18px;
+    font-weight: 200;
+}
+
 .receipt {
     margin: 25px;
     background-color: white;

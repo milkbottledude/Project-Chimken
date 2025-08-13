@@ -34,6 +34,7 @@
             </div>
         </div>
     </div>
+    <p id="screenshot_prompt">Feel free to screenshot the receipt below</p>
     <div class="receipt">
         <div class="shop_details">
             <p id="shop_name"> Sing Soon Lee Hainanese Boneless Chicken Rice </p>
@@ -47,7 +48,7 @@
         </div>
         <div class="order_details receipt_grid">
             <div class="order_box" id="items_ordered">
-                <p class="col_label"> Item ordered </p>
+                <p class="col_label"> Item </p>
                 {% for item in items_ordered %}
                     <p class="row_value">{{ item }}</p>
                 {% endfor %}

@@ -290,7 +290,7 @@ def confirmation():
                 order_no = int(latest_order['order_no']) + 1
         dashboard_data['Order Number'] = order_no
         db_data['order_no'] = order_no
-        db_data['order_ID'] = str(order_id_no) + '_' + str(current_date)
+        db_data['order_ID'] = str(current_date) + '_' + str(order_id_no)
         db_data['order_datetime_obj'] = order_datetime_obj
         db_data['payment'] = 'NOT APPROVED'
 

@@ -93,13 +93,14 @@ body {
 }
 
 #orders {
+    margin: 0 auto;
     margin-top: 80px;
-    width: 50%;
+    width: 70%;
 }
 
-#not_impt_orders {
+/* #not_impt_orders {
     margin-top: 80px;
-}
+} */
 
 .dashboard_order {
     padding: 0px 5px;
@@ -485,6 +486,11 @@ body.body_centered {
     font-size: 39px;
     font-weight: 200;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#screenshot_prompt {
+    font-size: 25px;
+    font-weight: 200;
 }
 
 .receipt {
