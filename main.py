@@ -42,7 +42,7 @@ def login():
 
 # Hawker Admin home below
 SSL_password = 'SSL01'
-SSL_name = 'Sing Soon Lee'
+SSL_name = 'S S Lee'
 # do stall owner stuff only after u finish all the customer stuff
 @app.route('/admin_home', methods=['GET', 'POST'])
 def admin_home():
@@ -90,7 +90,8 @@ def admin_home():
                 lesgo_db = lesgo_db + key + ': ' + str(value) + '_'
             print(lesgo_db)
             lesgo_dbs_list.append(lesgo_db[:-1])
-
+        print(len(lesgo_dbs_list))
+        print('SKSKSKSLSKLSLLSLKSLSLLSLKSLKSLK HOW LONG THE LIST BRuh')
         return render_template('dashboard.html', name = SSL_name, lesgo_dbs_list = lesgo_dbs_list)
     else:
         return redirect('/')
@@ -150,7 +151,8 @@ dashboard_data = {
     'Order Number': 111,
     'Items Ordered': 222,
     'Total Cost': 444,
-    'Collection Time': 555
+    'Collection Time': 555,
+    'order_ID': None,
 }
 
 
@@ -197,18 +199,20 @@ def checkout():
         # adding to dashboard dict
         dashboard_data['Items Ordered'] = items_ordered.copy()
         dashboard_data['Total Cost'] = total_cost
-        print('AGHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
         print(items_ordered)
-        print('AGHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
-
+        len(item_amts_ordered_filtered)
+        print('FUCKKKKKKKKKKKKKKKKKK')
         for i in range(len(item_amts_ordered_filtered)):
+            print('FUCKKKKKKKKKKKKKKKKKK')
+            print(len(item_amts_ordered_filtered))
             item = items_ordered[i]
             item_amt = str(item_amts_ordered_filtered[i])
             dashboard_data['Items Ordered'][i] = item + ' - ' + item_amt
             db_data['item_amts_ordered'].append(item + ' - ' + item_amt)
-        print('AGHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
         print(item_amts_ordered)
-        print('AGHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
+        print('BETTER NOT BE 22222222222222222222')
+        print(dashboard_data['Items Ordered'])
+        print('BETTER NOT BE 22222222222222222222')
         total_amts = sum(item_amts_ordered_filtered)
         return render_template('customer/checkout.html', items_ordered = items_ordered, price_list = price_list, total_cost = total_cost, item_amts_ordered_filtered = item_amts_ordered_filtered, item_amts_ordered = item_amts_ordered)
     else:
@@ -220,6 +224,12 @@ def checkout():
 # here is where they scan the qr code and submit ss of paynow
 @app.route('/payment', methods=['GET', 'POST'])
 def payment():
+
+    print('BETTER NOT BE 22222222222222222222')
+    print(dashboard_data['Items Ordered'])
+    print('BETTER NOT BE 22222222222222222222')
+
+
     if request.method == 'GET':
         return redirect('/')
     else:
@@ -255,6 +265,13 @@ def confirmation():
     if request.method == 'GET':
         return redirect('/')
     else:
+
+        print('BETTER NOT BE 22222222222222222222')
+        print(dashboard_data['Items Ordered'])
+        print('BETTER NOT BE 22222222222222222222')
+
+
+        
         collection_hour = request.form.get('collection_hour_input')
         collection_minute = request.form.get('collection_minute_input')
         collection_ampm = request.form.get('collection_ampm_input')
@@ -273,6 +290,7 @@ def confirmation():
 
         # GETTING ORDER NUMBER FROM DB      .
         #                               HERE
+        print('getting order number from db AGHHHHHHHHHHHH')
         order_no = 1
         order_id_no = 1
         order_datetime_obj = datetime.now(ZoneInfo("Asia/Kuala_Lumpur"))
@@ -283,7 +301,12 @@ def confirmation():
             latest_order = latest_order.to_dict()
             print('LATESTTTTTTTTTTTTTT ORDER FROM DB')
             print(latest_order)
-            order_id_no = str(int(latest_order['order_ID'][0]) + 1)
+            order_id_no = str(int(latest_order['order_ID'][-1]) + 1)
+            print('NIGGGGGGGGGGGGGGGGGGGGGG')
+            print(order_id_no)
+            print(latest_order['order_ID'][1])
+            print('NIGGGGGGGGGGGGGGGGGGGGGG')
+
             order_date = latest_order['order_datetime_obj'].date()
             current_date = order_datetime_obj.date()
             if order_date == current_date:
@@ -291,8 +314,9 @@ def confirmation():
         dashboard_data['Order Number'] = order_no
         db_data['order_no'] = order_no
         db_data['order_ID'] = str(current_date) + '_' + str(order_id_no)
+        dashboard_data['order_ID'] = 'id' + str(current_date) + 'n' + str(order_id_no)
         db_data['order_datetime_obj'] = order_datetime_obj
-        db_data['payment'] = 'NOT APPROVED'
+        db_data['payment'] = 'PENDING'
 
         # SENDING ORDER DEETS TO DB
         print('Sending order details to firestore db')
@@ -303,12 +327,16 @@ def confirmation():
 
         # dashboard code below, to be moved further down to confirmation.html when deploying app (DONE)
         go_db = ''
+        print(dashboard_data)
         for key, value in dashboard_data.items():
-            if key == 'Items Ordered':
+            key = key + ': '
+            print(key, value)
+            if key == 'Items Ordered: ':
                 print(value)
                 value = ', '.join(value)
-            key = key.replace('_', ' ')
-            go_db = go_db + key + ': ' + str(value) + '_'
+            elif key == 'order_ID: ':
+                key = ''
+            go_db = go_db + key + str(value) + '_'
         print(go_db)
         print('SOCKETINGGGGGGGGGGGGGGGGGGG')
         socketio.send(go_db[:-1], namespace='/admin')

@@ -23,12 +23,16 @@
   </div>
   <img src="../../static/bit_unc_v1.png" id="admin_profile_pic" alt="SSL_pic">
   <div id="all_orders">
-    <p> Today's Orders </p>
-    <div id="orders">
+    <div class="orders_container">
+      <p> Today's Orders: </p>
+      <div id="orders">
+      </div>
     </div>
-    <!-- <div id="not_impt_orders">
-      nig
-    </div> -->
+    <div class="orders_container" id="not_impt_orders_container">  
+    <p> Dismissed Orders: </p>
+      <div id="not_impt_orders">
+      </div>
+    </div>
   </div>
   <script src="../static/dashboard.js"></script>
 </body>

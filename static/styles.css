@@ -92,24 +92,39 @@ body {
     flex-direction: row;
 }
 
-#orders {
-    margin: 0 auto;
+.orders_container {
+    margin: 0 5px;
     margin-top: 80px;
-    width: 70%;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
 }
 
-/* #not_impt_orders {
+#not_impt_orders {
     margin-top: 80px;
-} */
+}
 
 .dashboard_order {
+    position: relative;
     padding: 0px 5px;
     border: 2px solid black;
     margin-bottom: 20px;
 }
 
+.dismissed_order {
+    border: 2px solid red;
+}
+
 .order_p {
     border: 2px solid pink;
+    width: 80%;
+}
+
+.dismiss_button {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 3;
 }
 
 .blocked {

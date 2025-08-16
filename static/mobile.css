@@ -69,21 +69,21 @@ body.login_page {
 
 .hello_user_container {
     position: fixed;
-    top: 15px;
-    right: 71px;
-    font-size: 21px;
+    top: 17px;
+    right: 69px;
+    font-size: 15px;
     z-index: 3;
 }
 
 #hello_user {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 22px;
+    font-size: 17px;
 }
 
 #admin_profile_pic {
     position: fixed;
-    top: 10px;
-    right: 10px;
+    top: 6px;
+    right: 12px;
     border: 2px solid black;
     border-radius: 20px;
     width: 40px;
@@ -92,26 +92,44 @@ body.login_page {
 
 #all_orders {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    margin-top: 60px;
 }
 
 #orders {
-    margin-top: 80px;
-    width: 50%;
+    margin-top: 10px;
+    width: 100%;
+}
+
+#not_impt_orders_container {
+    opacity: 0;
 }
 
 #not_impt_orders {
-    margin-top: 80px;
+    opacity: 0;
 }
 
 .dashboard_order {
+    position: relative;
     padding: 0px 5px;
     border: 2px solid black;
     margin-bottom: 20px;
 }
 
+.dismissed_order {
+    border: 2px solid red;
+}
+
 .order_p {
     border: 2px solid pink;
+    width: 80%;
+}
+
+.dismiss_button {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 3;
 }
 
 .blocked {
