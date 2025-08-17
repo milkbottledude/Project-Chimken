@@ -1,4 +1,4 @@
-const socket = io('/admin');
+const socket = io('/admin', {transport: ['websocket', 'polling']});
 const orderdiv = document.querySelector('#orders');
 const data_holder = document.querySelector('#data-holder')
 const msgList = JSON.parse(data_holder.dataset.msgList);
@@ -32,7 +32,7 @@ function to_dashboard(single_msg) {
   var d_button = document.createElement('button');
   d_button.id = msg_array[4] + '_button';
   d_button.classList.add('dismiss_button');
-  d_button.textContent = 'X';
+  d_button.textContent = 'V';
   newdiv.appendChild(d_button)
   orderdiv.prepend(newdiv);
   console.log('child appended');
@@ -77,17 +77,30 @@ socket.on('disconnect', () => {
 
 // js for dismissal button
 
+const orders_container = document.querySelector('#all_orders');
 const dismissed_container = document.querySelector('#not_impt_orders');
-const dismissal_buttons = document.querySelectorAll('.dismiss_button');
+const retained_container = document.querySelector('#orders');
 
-dismissal_buttons.forEach(
-  button => {
-    button.addEventListener('click', function() {
+orders_container.addEventListener('click', function(event) {
+  const button = event.target;
+  if (button.classList.contains('dismiss_button')) {
+    let button_id = button.id;
+    order_id = button_id.slice(0, -7);
+    let order_box = document.querySelector(`#${order_id}`);
+    order_box.classList.add('dismissed_order');
+    button.classList.add('retain_button');
+    order_box.classList.remove('dashboard_order');
+    button.classList.remove('dismiss_button');
+    dismissed_container.prepend(order_box);  
+  }
+  else if (button.classList.contains('retain_button')) {
       let button_id = button.id;
       order_id = button_id.slice(0, -7);
       let order_box = document.querySelector(`#${order_id}`);
-      order_box.classList.add('dismissed_order');
-      dismissed_container.prepend(order_box);
-    })
+      order_box.classList.add('dashboard_order');
+      button.classList.add('dismiss_button');
+      order_box.classList.remove('dismissed_order');
+      button.classList.remove('retain_button');
+      retained_container.prepend(order_box);
   }
-)
+});

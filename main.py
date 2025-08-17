@@ -12,8 +12,9 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'not_the_actual_key'
 socketio = SocketIO(
     app,
-    async_mode='threading',
-    cors_allowed_origins=["https://5000-cs-700308306001-default.cs-asia-southeast1-fork.cloudshell.dev", "https://xenon-height-425100-i6.et.r.appspot.com"]
+    async_mode = 'threading',
+    transports = ['websocket', 'polling'],
+    cors_allowed_origins = ["https://5000-cs-700308306001-default.cs-asia-southeast1-fork.cloudshell.dev", "https://xenon-height-425100-i6.et.r.appspot.com"]
 )
 # print(f"SocketIO async mode: {socketio.async_mode}")
 # print('NIGAAAAAAAAAAA')
@@ -69,13 +70,18 @@ def admin_home():
                 'Order Number': 666,
                 'Items Ordered': 777,
                 'Total Cost': 888,
-                'Collection Time': 999            
+                'Collection Time': 999,
+                'orderID': None,        
             }
 
             ISSIT_REALLY_A_DICT['Order Number'] = doc_dict['order_no']
             ISSIT_REALLY_A_DICT['Items Ordered'] = doc_dict['item_amts_ordered']
             ISSIT_REALLY_A_DICT['Total Cost'] = doc_dict['total_cost']
             ISSIT_REALLY_A_DICT['Collection Time'] = doc_dict['collection_time']
+            print(doc_dict['order_ID'])
+            print('FUCKKKKKKKKKKKKKKKKKKKKKK MUSKKKKKKKKKKKKK')
+            ISSIT_REALLY_A_DICT['orderID'] = doc_dict['order_ID']
+            print(ISSIT_REALLY_A_DICT['orderID'])
             print('assigned values to issitdict yuhhhhhhhhhhh')
             print(ISSIT_REALLY_A_DICT)
 
@@ -83,11 +89,13 @@ def admin_home():
 
             lesgo_db = ''
             for key, value in ISSIT_REALLY_A_DICT.items():
-                if key == 'Items Ordered':
-                    print(value)
+                key = key + ': '
+                print(key, value)
+                if key == 'Items Ordered: ':
                     value = ', '.join(value)
-                key = key.replace('_', ' ')
-                lesgo_db = lesgo_db + key + ': ' + str(value) + '_'
+                elif key == 'orderID: ':
+                    key = ''
+                lesgo_db = lesgo_db + key + str(value) + '_'
             print(lesgo_db)
             lesgo_dbs_list.append(lesgo_db[:-1])
         print(len(lesgo_dbs_list))
@@ -138,7 +146,7 @@ orders_db = firestore.Client()
 
 db_data = {
     'order_ID': None,
-    'item_amts_ordered': [],
+    'item_amts_ordered': None,
     'total_cost': None,
     'order_datetime_obj': None,
     'date_str': None,
@@ -152,13 +160,17 @@ dashboard_data = {
     'Items Ordered': 222,
     'Total Cost': 444,
     'Collection Time': 555,
-    'order_ID': None,
+    'orderID': None,
 }
 
 
 # here is where the ngas can see what they ordered
 @app.route('/checkout', methods=['GET', 'POST']) # Maybe add a msg as well to say 'u hvnt ordered shi', but not yet focus on basics first
 def checkout():
+
+    print('BETTER NOT BE W PREVVBVVVVVVVVVVVVVV')
+    print(db_data['item_amts_ordered'])
+    print('BETTER NOT BE W PREVVBVVVVVVVVVVVVVV')
 
 # threading over eventlet works, yay
     # try:
@@ -183,6 +195,7 @@ def checkout():
         db_data['total_cost'] = total_cost
         item_amts_ordered = [SCR_amt, HSC_amt, WSC_amt, RP_amt]
         items_ordered = []
+        print('HIIIIIIIIIIIIIIIIIIIIIIIII')
         print(item_amts_ordered)
         for x in range(len(item_amts_ordered)):
             if item_amts_ordered[x] > 0:
@@ -202,7 +215,10 @@ def checkout():
         print(items_ordered)
         len(item_amts_ordered_filtered)
         print('FUCKKKKKKKKKKKKKKKKKK')
+        db_data['item_amts_ordered'] = []
+        print(db_data['item_amts_ordered'])
         for i in range(len(item_amts_ordered_filtered)):
+            print(db_data['item_amts_ordered'])
             print('FUCKKKKKKKKKKKKKKKKKK')
             print(len(item_amts_ordered_filtered))
             item = items_ordered[i]
@@ -210,9 +226,6 @@ def checkout():
             dashboard_data['Items Ordered'][i] = item + ' - ' + item_amt
             db_data['item_amts_ordered'].append(item + ' - ' + item_amt)
         print(item_amts_ordered)
-        print('BETTER NOT BE 22222222222222222222')
-        print(dashboard_data['Items Ordered'])
-        print('BETTER NOT BE 22222222222222222222')
         total_amts = sum(item_amts_ordered_filtered)
         return render_template('customer/checkout.html', items_ordered = items_ordered, price_list = price_list, total_cost = total_cost, item_amts_ordered_filtered = item_amts_ordered_filtered, item_amts_ordered = item_amts_ordered)
     else:
@@ -225,10 +238,9 @@ def checkout():
 @app.route('/payment', methods=['GET', 'POST'])
 def payment():
 
-    print('BETTER NOT BE 22222222222222222222')
-    print(dashboard_data['Items Ordered'])
-    print('BETTER NOT BE 22222222222222222222')
-
+    print('BETTER NOT BE W PREVVBVVVVVVVVVVVVVV')
+    print(db_data['item_amts_ordered'])
+    print('BETTER NOT BE W PREVVBVVVVVVVVVVVVVV')
 
     if request.method == 'GET':
         return redirect('/')
@@ -266,9 +278,13 @@ def confirmation():
         return redirect('/')
     else:
 
-        print('BETTER NOT BE 22222222222222222222')
-        print(dashboard_data['Items Ordered'])
-        print('BETTER NOT BE 22222222222222222222')
+        print('BETTER NOT BE W PREVVBVVVVVVVVVVVVVV')
+        print(db_data['item_amts_ordered'])
+        print('BETTER NOT BE W PREVVBVVVVVVVVVVVVVV')
+
+        # print('BETTER NOT BE 22222222222222222222')
+        # print(dashboard_data['Items Ordered'])
+        # print('BETTER NOT BE 22222222222222222222')
 
 
         
@@ -277,8 +293,6 @@ def confirmation():
         collection_ampm = request.form.get('collection_ampm_input')
         dashboard_data['Collection Time'] = f'{collection_hour}:{collection_minute} {collection_ampm}'
         db_data['collection_time'] = f'{collection_hour}:{collection_minute} {collection_ampm}'
-        print('CHECK COLLECTION TIME HEREEEEEEEEEEEEEEEEEEE')
-        print(collection_hour, collection_minute, collection_ampm)
         items_ordered = ast.literal_eval(request.form.get('items_ordered'))
         price_list = ast.literal_eval(request.form.get('price_list'))
         item_amts_ordered_filtered = ast.literal_eval(request.form.get('item_amts_ordered_filtered'))
@@ -313,8 +327,8 @@ def confirmation():
                 order_no = int(latest_order['order_no']) + 1
         dashboard_data['Order Number'] = order_no
         db_data['order_no'] = order_no
-        db_data['order_ID'] = str(current_date) + '_' + str(order_id_no)
-        dashboard_data['order_ID'] = 'id' + str(current_date) + 'n' + str(order_id_no)
+        db_data['order_ID'] = 'id' + str(current_date) + 'n' + str(order_id_no)
+        dashboard_data['orderID'] = 'id' + str(current_date) + 'n' + str(order_id_no)
         db_data['order_datetime_obj'] = order_datetime_obj
         db_data['payment'] = 'PENDING'
 
@@ -334,7 +348,7 @@ def confirmation():
             if key == 'Items Ordered: ':
                 print(value)
                 value = ', '.join(value)
-            elif key == 'order_ID: ':
+            elif key == 'orderID: ':
                 key = ''
             go_db = go_db + key + str(value) + '_'
         print(go_db)
