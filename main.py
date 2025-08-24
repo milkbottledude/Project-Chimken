@@ -315,7 +315,7 @@ def confirmation():
             latest_order = latest_order.to_dict()
             print('LATESTTTTTTTTTTTTTT ORDER FROM DB')
             print(latest_order)
-            order_id_no = str(int(latest_order['order_ID'][-1]) + 1)
+            order_id_no = str(int(latest_order['order_ID'][13:]) + 1)
             print('NIGGGGGGGGGGGGGGGGGGGGGG')
             print(order_id_no)
             print(latest_order['order_ID'][1])

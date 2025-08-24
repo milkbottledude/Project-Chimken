@@ -108,7 +108,10 @@ body {
 }
 
 .dismissed_order {
+    position: relative;
+    padding: 0px 5px;
     border: 2px solid red;
+    margin-bottom: 20px;
 }
 
 .order_p {
@@ -117,6 +120,13 @@ body {
 }
 
 .dismiss_button {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 3;
+}
+
+.retain_button {
     position: absolute;
     top: 2px;
     right: 2px;

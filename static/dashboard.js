@@ -75,32 +75,55 @@ socket.on('disconnect', () => {
   });
 
 
+  
 // js for dismissal button
 
 const orders_container = document.querySelector('#all_orders');
 const dismissed_container = document.querySelector('#not_impt_orders');
 const retained_container = document.querySelector('#orders');
 
-orders_container.addEventListener('click', function(event) {
+    // stuff for editing fields in firestore docs
+const firebaseConfig = {
+  apiKey: "AIzaSyB4TCkrAy6Gt_CF0TdDkOvlZE_AUUZ26cw",
+  projectId: "xenon-height-425100-i6"
+}
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+async function updateField(docRef, fieldName, newValue) {
+  await docRef.update({
+    [fieldName]: newValue
+  });
+  console.log(`${fieldName} is now ${newValue}`);
+}
+
+orders_container.addEventListener('click', async function(event) {
   const button = event.target;
+  const button_id = button.id;
+  order_id = button_id.slice(0, -7);
+  const docRef = db.collection('SSL_orders').doc(order_id);
   if (button.classList.contains('dismiss_button')) {
-    let button_id = button.id;
-    order_id = button_id.slice(0, -7);
+    // order_id = button_id.slice(0, -7);
+    console.log(order_id);
+    // changing firestore doc field's value 
+    await updateField(docRef, 'payment', 'DISMISSED');
     let order_box = document.querySelector(`#${order_id}`);
     order_box.classList.add('dismissed_order');
     button.classList.add('retain_button');
     order_box.classList.remove('dashboard_order');
     button.classList.remove('dismiss_button');
     dismissed_container.prepend(order_box);  
-  }
-  else if (button.classList.contains('retain_button')) {
-      let button_id = button.id;
-      order_id = button_id.slice(0, -7);
-      let order_box = document.querySelector(`#${order_id}`);
-      order_box.classList.add('dashboard_order');
-      button.classList.add('dismiss_button');
-      order_box.classList.remove('dismissed_order');
-      button.classList.remove('retain_button');
-      retained_container.prepend(order_box);
+  } else if (button.classList.contains('retain_button')) {
+    // let button_id = button.id;
+    // order_id = button_id.slice(0, -7);
+    // changing firestore doc field's value 
+    await updateField(docRef, 'payment', 'PENDING');
+    let order_box = document.querySelector(`#${order_id}`);
+    order_box.classList.add('dashboard_order');
+    button.classList.add('dismiss_button');
+    order_box.classList.remove('dismissed_order');
+    button.classList.remove('retain_button');
+    retained_container.prepend(order_box);
   }
 });

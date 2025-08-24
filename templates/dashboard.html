@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <!-- flask-socketio script link -->
-    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
-    <!-- flask-socketio script link -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link href="../static/mobile.css" rel="stylesheet" media="screen and (max-width:900px)">
-    <link href="../static/styles.css" rel="stylesheet" media="screen and (min-width:900px)">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <!-- flask-socketio script link -->
+  <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+  <!-- flask-socketio script link -->
+  <!-- Firebase app and Firestore database functionality script links -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <!-- Firebase app and Firestore database functionality script links -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="../static/mobile.css" rel="stylesheet" media="screen and (max-width:900px)">
+  <link href="../static/styles.css" rel="stylesheet" media="screen and (min-width:900px)">
 </head>
 <body>
   <div id="data-holder" data-msg-list='{{ lesgo_dbs_list | tojson | safe }}' style="display:none;"></div>
