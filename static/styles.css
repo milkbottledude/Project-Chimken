@@ -103,14 +103,14 @@ body {
 .dashboard_order {
     position: relative;
     padding: 0px 5px;
-    border: 2px solid black;
+    border: 2px solid red;
     margin-bottom: 20px;
 }
 
 .dismissed_order {
     position: relative;
     padding: 0px 5px;
-    border: 2px solid red;
+    border: 2px solid black;
     margin-bottom: 20px;
 }
 
@@ -131,6 +131,7 @@ body {
     top: 2px;
     right: 2px;
     z-index: 3;
+    transform: rotate(180deg);
 }
 
 .blocked {

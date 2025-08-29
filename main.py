@@ -72,12 +72,14 @@ def admin_home():
                 'Total Cost': 888,
                 'Collection Time': 999,
                 'orderID': None,        
+                'payment': None,
             }
 
             ISSIT_REALLY_A_DICT['Order Number'] = doc_dict['order_no']
             ISSIT_REALLY_A_DICT['Items Ordered'] = doc_dict['item_amts_ordered']
             ISSIT_REALLY_A_DICT['Total Cost'] = doc_dict['total_cost']
             ISSIT_REALLY_A_DICT['Collection Time'] = doc_dict['collection_time']
+            ISSIT_REALLY_A_DICT['payment'] = doc_dict['payment']
             print(doc_dict['order_ID'])
             print('FUCKKKKKKKKKKKKKKKKKKKKKK MUSKKKKKKKKKKKKK')
             ISSIT_REALLY_A_DICT['orderID'] = doc_dict['order_ID']
@@ -161,6 +163,7 @@ dashboard_data = {
     'Total Cost': 444,
     'Collection Time': 555,
     'orderID': None,
+    'payment': None
 }
 
 
@@ -331,6 +334,7 @@ def confirmation():
         dashboard_data['orderID'] = 'id' + str(current_date) + 'n' + str(order_id_no)
         db_data['order_datetime_obj'] = order_datetime_obj
         db_data['payment'] = 'PENDING'
+        dashboard_data['payment'] = 'PENDING'
 
         # SENDING ORDER DEETS TO DB
         print('Sending order details to firestore db')

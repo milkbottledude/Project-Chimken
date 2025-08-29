@@ -1,12 +1,12 @@
 const socket = io('/admin', {transport: ['websocket', 'polling']});
 const orderdiv = document.querySelector('#orders');
+const not_impt_ordersdiv = document.querySelector('#not_impt_orders')
 const data_holder = document.querySelector('#data-holder')
 const msgList = JSON.parse(data_holder.dataset.msgList);
 
 
 function to_dashboard(single_msg) {
   var newdiv = document.createElement('div');
-  newdiv.classList.add('dashboard_order');
   msg_array = single_msg.split('_')
   newdiv.id = msg_array[4]
   for (i = 0; i <= 3; i++) {
@@ -31,10 +31,20 @@ function to_dashboard(single_msg) {
 // now adding dismiss_button
   var d_button = document.createElement('button');
   d_button.id = msg_array[4] + '_button';
-  d_button.classList.add('dismiss_button');
   d_button.textContent = 'V';
   newdiv.appendChild(d_button)
-  orderdiv.prepend(newdiv);
+  console.log(msg_array[5])
+  if (msg_array[5] == 'payment: DISMISSED') {
+    console.log('dismissed hereE');
+    newdiv.classList.add('dismissed_order');
+    d_button.classList.add('retain_button');
+    not_impt_ordersdiv.prepend(newdiv);
+  } else {
+    console.log('not dismissed hereE');
+    newdiv.classList.add('dashboard_order');
+    d_button.classList.add('dismiss_button');
+    orderdiv.prepend(newdiv);
+  }    
   console.log('child appended');
 }
 
