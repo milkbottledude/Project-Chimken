@@ -5,3 +5,4 @@ numpy
 flask-socketio
 google-cloud-firestore
 eventlet
+firebase-admin==7.1.0

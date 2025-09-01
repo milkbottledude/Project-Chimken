@@ -1,11 +1,13 @@
 import pandas as pd
 import numpy as np
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, jsonify
 from flask_socketio import SocketIO, send
 import ast
 from datetime import datetime, timedelta, date
 from google.cloud import firestore
 from zoneinfo import ZoneInfo
+import firebase_admin
+from firebase_admin import credentials, firestore
 
 
 app = Flask(__name__)
@@ -273,6 +275,24 @@ def payment():
 
 # this will use socket.io to handle the form and send data to the admin dashboard
 
+# replacement for node.js below, finna update firestore doc fieldnames
+
+cred = credentials.Certificate("serviceAccountKey.json")
+firebase_admin.initialize_app(cred)
+
+@app.route('/send-stroong', methods=['POST'])
+def send_stroong():
+    try:
+        data = request.get_json()
+        string = data.get('stringeroo')
+        stringos = string.split('=')
+        doc_ref = orders_db.collection('SSL_orders').document(stringos[0])
+        doc_ref.update({
+            stringos[1]: stringos[2]
+        })
+        return jsonify({'status': 'ok'})
+    except Exception as e:
+        print(e)
 
 # this is where the YOLO will take out all the impt info and verify, as well as upload the data to a database
 @app.route('/confirmation', methods=['GET', 'POST'])

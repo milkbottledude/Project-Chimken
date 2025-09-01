@@ -86,38 +86,35 @@ socket.on('disconnect', () => {
 
 
   
-// js for dismissal button
+// js for dismissal n retain button
 
 const orders_container = document.querySelector('#all_orders');
 const dismissed_container = document.querySelector('#not_impt_orders');
 const retained_container = document.querySelector('#orders');
 
-    // stuff for editing fields in firestore docs
-const firebaseConfig = {
-  apiKey: "AIzaSyB4TCkrAy6Gt_CF0TdDkOvlZE_AUUZ26cw",
-  projectId: "xenon-height-425100-i6"
-}
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-async function updateField(docRef, fieldName, newValue) {
-  await docRef.update({
-    [fieldName]: newValue
+async function sendTostroong(orderid, fieldName, newValue) {
+  const stringeroo = orderid + '=' + fieldName + '=' + newValue;
+  const response = await fetch('/send-stroong', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ stringeroo })
   });
-  console.log(`${fieldName} is now ${newValue}`);
+
+  console.log(`info sent to stroong, converting to ${newValue}...`);
+  const data = await response.json();
+  console.log(data);
 }
 
 orders_container.addEventListener('click', async function(event) {
   const button = event.target;
   const button_id = button.id;
   order_id = button_id.slice(0, -7);
-  const docRef = db.collection('SSL_orders').doc(order_id);
   if (button.classList.contains('dismiss_button')) {
-    // order_id = button_id.slice(0, -7);
     console.log(order_id);
     // changing firestore doc field's value 
-    await updateField(docRef, 'payment', 'DISMISSED');
+    await sendTostroong(order_id, 'payment', 'DISMISSED');
     let order_box = document.querySelector(`#${order_id}`);
     order_box.classList.add('dismissed_order');
     button.classList.add('retain_button');
@@ -128,7 +125,7 @@ orders_container.addEventListener('click', async function(event) {
     // let button_id = button.id;
     // order_id = button_id.slice(0, -7);
     // changing firestore doc field's value 
-    await updateField(docRef, 'payment', 'PENDING');
+    await sendTostroong(order_id, 'payment', 'PENDING');
     let order_box = document.querySelector(`#${order_id}`);
     order_box.classList.add('dashboard_order');
     button.classList.add('dismiss_button');
