@@ -35,31 +35,29 @@
     </div> -->
     <p id="what_time_you_want">Choose your time of collection:</p>
     <div class="order_time_container">
-        <button class="change_min" id="increase_min">v</button>
+        <div>
+            <span id="hour_label">Hour</span>
+            <span id="minute_label">Minute</span>
+        </div>
+        <div class="updown_buttons">
+            <button class="change_time increase_time change_hour" id="increase_hour">v</button>
+            <button class="change_time increase_time" id="increase_min">v</button>
+        </div>
         <div id="time_container">
-            <select class="collect_order_time" name="collection_hour" id="collection_hour">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-            </select>
-            <!-- <div class="collect_order_time" id="order_time_hour">0</div> -->
+            <div class="hidden_order_times" id="order_time_hour">{{ order_time_hour }}</div>
+            <div class="hidden_order_times" id="order_time_minute">{{ order_time_minute }}</div>
+            <div class="collect_order_time" id="collection_hour">{{ order_time_hour }}</div>
             <p class="collect_order_time" id="collection_colon">:</p>
-            <div class="collect_order_time" id="collection_minute">00</div>
-            <select class="collect_order_time" id="collection_ampm" >
+            <div class="collect_order_time" id="collection_minute">{{ order_time_minute }}</div>
+            <!-- <select class="collect_order_time" id="collection_ampm" >
                 <option value="AM">AM</option>
                 <option value="PM" selected>PM</option>
-            </select>
+            </select> -->
         </div>
-        <button class="change_min" id="decrease_min">v</button>
+        <div class="updown_buttons">
+            <button class="change_time decrease_time change_hour" id="decrease_hour">v</button>
+            <button class="change_time decrease_time" id="decrease_min">v</button>
+        </div>
     </div>
     <div>
         <form method="POST" action="/confirmation" id="hidden_form">
@@ -74,7 +72,7 @@
             </div>
             <input type="hidden" name="collection_hour_input" value="empty_hour" id="collection_hour_input">
             <input type="hidden" name="collection_minute_input" value="empty_minute" id="collection_minute_input">
-            <input type="hidden" name="collection_ampm_input" value="empty ampm" id="collection_ampm_input">
+            <!-- <input type="hidden" name="collection_ampm_input" value="empty ampm" id="collection_ampm_input"> -->
             <input type="hidden" name="items_ordered" value="{{ items_ordered }}">
             <input type="hidden" name="item_amts_ordered" value="{{ item_amts_ordered }}">
             <input type="hidden" name="item_amts_ordered_filtered" value="{{ item_amts_ordered_filtered }}">

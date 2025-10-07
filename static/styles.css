@@ -37,6 +37,10 @@ body {
     filter: brightness(80%);
 }
 
+#hawker_login_button {
+    display: none;
+}
+
 #enter_hawker_id {
     opacity: 0;
     margin: 25px 0;
@@ -157,6 +161,50 @@ body {
     z-index: 1;
 }
 
+#greyed_out {
+    background-color: rgba(0, 0, 0, 0.6); /* semi-transparent grey */
+    z-index: 4;
+}
+
+#checkout_icon_smol {
+    width: 32px;
+    margin-top: 5px;
+}
+
+.pop_up_div {
+    position: fixed;
+    z-index: 3;
+    top: 20px;
+    right: 190px;
+    width: 144px;
+    height: 71px;
+    border: 2px solid black;
+    border-radius: 7px;
+    background-color: #efe8dd;
+    padding-left: 5px;
+    display: none;
+}
+
+.order_tip_div {
+    position: fixed;
+    z-index: 3;
+    top: 40px;
+    right: 490px;
+    width: 244px;
+    height: 51px;
+    border: 2px solid black;
+    border-radius: 7px;
+    background-color: #efe8dd;
+    padding: 5px;
+    /* display: none; */
+}
+
+#ok_button {
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+}
+
 .flying_scr {
     top: 8%;
     right: 80%;
@@ -262,6 +310,20 @@ body {
     margin-bottom: 10px;
 }
 
+.minus_plus_button {
+    border-radius: 8px;
+    border: 1px solid grey;
+}
+
+.minus_plus_button:hover {
+    border: 2px solid red;
+}
+
+.minus_plus_button:active {
+    filter: brightness(80%);
+}
+
+
 .food_image {
     display: block;
     width: 390px;
@@ -281,6 +343,12 @@ body {
 }
 
 /* Checkout CSS */
+
+.order_overload_message {
+    font-size: 27px;
+    margin-top: 140px;
+    width: 60%;
+}
 
 body.body_centered {
     display: flex;
@@ -368,25 +436,47 @@ body.body_centered {
     justify-content: center;
 }
 
+#hour_label {
+    margin-left: 10px;
+    margin-right: 60px;
+}
 
-.change_min {
+.hidden_order_times {
+    display: none;
+}
+
+.updown_buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.change_time {
     font-size: 20px;
-    margin-left: 27px;
+    margin-left: 15px;
     padding: 0 10px;
     border: 1px solid black;
     border-radius: 15px;
 }
 
-.change_min:hover {
+.change_time:hover {
     font-size: 24px;
 }
 
-.change_min:active {
+.change_time:active {
     filter: brightness(80%);
 }
 
 #increase_min {
     transform: rotate(180deg);
+}
+
+#increase_hour {
+    transform: rotate(180deg);
+    margin-right: 55px;
+}
+
+#decrease_hour {
+    margin-right: 55px;
 }
 
 #time_container {

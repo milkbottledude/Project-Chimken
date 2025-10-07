@@ -1,10 +1,10 @@
 runtime: python313
+env: standard
 
 # entrypoint: gunicorn -b :$PORT main:app
-entrypoint: gunicorn -k sync -w 1 -b :$PORT main:app
-
+entrypoint: gunicorn -k eventlet -w 1 -b :$PORT main:app                                                                                                                                                                                                                           │
 automatic_scaling:
-  min_instances: 1
+  min_instances: 0
   max_instances: 7
 
 

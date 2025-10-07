@@ -1,3 +1,12 @@
+// for pop-up alerting customer to checkout button
+const pop_up_tag = document.querySelector('.pop_up_div')
+const order_tip_tag = document.querySelector('.order_tip_div')
+const ok_order_tip = document.querySelector('#ok_button')
+
+ok_order_tip.addEventListener('click', function() {
+    order_tip_tag.style.display = 'none'
+})
+
 // default constants
 const steamed_chicken_rice_price = 5;
 const half_steamed_chicken_price = 15;
@@ -14,6 +23,8 @@ const flying_wsc = document.querySelector('.flying_wsc')
 
 if (initial_cost.textContent > 0) {
     checkout_button.style.display ='block'
+    pop_up_tag.style.display = 'block'
+    order_tip_tag.style.display = 'none'
 }
 
 // for steamed chicken rice
@@ -34,6 +45,7 @@ down_SCR.addEventListener('click', function() {
 
         if (current_cost == 0) {
             checkout_button.style.display ='none'
+            pop_up_tag.style.display = 'none'
         }
     }
 
@@ -52,6 +64,7 @@ up_SCR.addEventListener('click', function() {
     current_cost += steamed_chicken_rice_price
     initial_cost.textContent = current_cost
     checkout_button.style.display = 'block'
+    pop_up_tag.style.display = 'block'
 
     flying_scr.classList.add('fly_in');
     setTimeout(function() {
@@ -78,6 +91,7 @@ down_HSC.addEventListener('click', function() {
 
         if (current_cost == 0) {
             checkout_button.style.display ='none'
+            pop_up_tag.style.display = 'none'
         }
     }
 })
@@ -95,6 +109,7 @@ up_HSC.addEventListener('click', function() {
     current_cost += half_steamed_chicken_price
     initial_cost.textContent = current_cost
     checkout_button.style.display = 'block'
+    pop_up_tag.style.display = 'block'
 
     flying_hsc.classList.add('fly_in');
     setTimeout(function() {
@@ -121,6 +136,7 @@ down_WSC.addEventListener('click', function() {
 
         if (current_cost == 0) {
             checkout_button.style.display ='none'
+            pop_up_tag.style.display = 'none'           
         }
     }
 })
@@ -138,6 +154,7 @@ up_WSC.addEventListener('click', function() {
     current_cost += whole_steamed_chicken_price
     initial_cost.textContent = current_cost
     checkout_button.style.display = 'block'
+    pop_up_tag.style.display = 'block'
 
     flying_wsc.classList.add('fly_in');
     setTimeout(function() {
@@ -166,6 +183,7 @@ down_RP.addEventListener('click', function() {
 
         if (current_cost == 0) {
             checkout_button.style.display ='none'
+            pop_up_tag.style.display = 'none'
         }
     }
 })
@@ -183,6 +201,7 @@ up_RP.addEventListener('click', function() {
     current_cost += rice_packet_price
     initial_cost.textContent = current_cost
     checkout_button.style.display = 'block'
+    pop_up_tag.style.display = 'block'
 
     flying_wsc.classList.add('fly_in');
     setTimeout(function() {

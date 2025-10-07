@@ -40,6 +40,7 @@ body.login_page {
 
 #hawker_login_button {
     margin-bottom: 10px;
+    display: none;
 }
 
 #enter_hawker_id {
@@ -169,6 +170,46 @@ body.login_page {
     z-index: 2;
 }
 
+#checkout_icon_smol {
+    width: 24px;
+    margin-top: 5px;
+}
+
+.pop_up_div {
+    position: fixed;
+    bottom: 20px;
+    right: 193px;
+    width: 137px;
+    height: 52px;
+    border: 2px solid black;
+    border-radius: 7px;
+    background-color: #efe8dd;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    display: none;
+}
+
+.order_tip_div {
+    position: fixed;
+    z-index: 3;
+    top: 69px;
+    right: 90px;
+    width: 244px;
+    height: 51px;
+    border: 2px solid black;
+    border-radius: 7px;
+    background-color: #efe8dd;
+    padding: 5px;
+    padding-bottom: 2px;
+    /* display: none; */
+}
+
+#ok_button {
+    position: absolute;
+    bottom: 7px;
+    right: 19px;
+}
+
 .flying_fud_mobile {
     display: none;
 }
@@ -244,10 +285,11 @@ body.login_page {
     margin-bottom: 2px;
 }
 
-.minus_plus_button:hover {
+.minus_plus_button:active {
     width: 29px;
     height: 29px;
     margin: 0;
+    border: 2px solid red;
 }
 
 .food_image {
@@ -259,6 +301,13 @@ body.login_page {
 }
 
 /* Checkout CSS */
+
+.order_overload_message {
+    margin: 0 auto;
+    font-size: 17px;
+    margin-top: 90px;
+    width: 80%;
+}
 
 body.body_centered {
     text-align: center;
@@ -290,10 +339,11 @@ body.body_centered {
     width: 80%;
     border: 1px solid grey;
     border-radius: 19px;
+    padding: 1px;
 }
 
 .order_box {
-    margin: 0 35px;
+    margin: 0 15px;
     margin-bottom: 0;
     text-align: left;
 }
@@ -371,27 +421,43 @@ body.body_centered {
     margin-top: 95px;
 }
 
-#order_time_container {
+.order_time_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin: 5px auto;
 }
 
-.change_min {
+#hour_label {
+    margin-right: 75px;
+}
+
+.hidden_order_times {
+    display: none;
+}
+
+.updown_buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.change_time {
     font-size: 20px;
-    margin-left: 25px;
     padding: 0 10px;
     border: 1px solid black;
     border-radius: 15px;
 }
 
-.change_min:active {
+.change_time:active {
     filter: brightness(80%);
 }
 
-#increase_min {
-    z-index: 1;
+.change_hour {
+    margin-right: 60px;
+}
+
+.increase_time {
     transform: rotate(180deg);
 }
 
