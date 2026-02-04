@@ -13,13 +13,13 @@
 
 Select the quantity of each food you would like:
 
-![Step1_mp4](progress_pics/step1.mp4)
+![Step1_mp4](progress_pics/step1.gif)
 
 **Step 2)**
 
 Once done, press the red shopping cart symbol at the top right to check out. Check that the order is correct, then proceed to payment
 
-![Step2_mp4](progress_pics/step2.mp4)
+![Step2_mp4](progress_pics/step2.gif)
 
 **Step 3)**
 
@@ -31,7 +31,7 @@ Choose the time you would like to collect your food by pressing the arrows to ad
 
 Once payment is registered, you will get a digital receipt, as well as a reminder for the collection of your food.
 
-![Step4_mp4](progress_pics/step4.mp4)
+![Step4_mp4](progress_pics/step4.gif)
 
 **Step 5)**
 
