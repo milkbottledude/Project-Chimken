@@ -13,27 +13,26 @@
 
 Select the quantity of each food you would like:
 
-![Step_1_mp4](progress_pics/step1.gif)
+![Step1_mp4](progress_pics/step1.mp4)
 
 **Step 2)**
 
-Select the quantity of each food you would like:
+Once done, press the red shopping cart symbol at the top right to check out. Check that the order is correct, then proceed to payment
 
-![Step_1_mp4](progress_pics/step2.gif)
+![Step2_mp4](progress_pics/step2.mp4)
 
 **Step 3)**
 
-Select the quantity of each food you would like:
+Choose the time you would like to collect your food by pressing the arrows to adjust the hour and minute. After that, scan and pay via the merchant QR code.
 
-![Step_1_mp4](progress_pics/step3.jpg)
+![Step3_jpg](progress_pics/step3.jpg)
 
 **Step 4)**
 
-Select the quantity of each food you would like:
+Once payment is registered, you will get a digital receipt, as well as a reminder for the collection of your food.
 
-![Step_1_mp4](progress_pics/step4.gif)
+![Step4_mp4](progress_pics/step4.mp4)
 
 **Step 5)**
 
 Enjoy your meal :)
-
