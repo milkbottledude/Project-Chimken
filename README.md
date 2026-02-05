@@ -10,7 +10,12 @@
 
 ## How to Use 🧐
 ### Step 1)
-Select the quantity of each food you would like, as of now we offer 1) chicken rice, 2) half steamed chicken, 3) whole steamed chicken, and 4) rice packet, aka *jia fan*.
+Select the quantity of each food you would like. As of now, we offer:
+
+- chicken rice,
+- half steamed chicken,
+- whole steamed chicken, &
+- rice packet, aka *jia fan*.
 
 ![Step1_mp4](progress_pics/step1.gif)
 
