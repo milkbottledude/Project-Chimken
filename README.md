@@ -8,7 +8,7 @@
 > 
 [Webapp](https://xenon-height-425100-i6.et.r.appspot.com/) is now up! Care for some chicken rice?
 
-#### How to Use 🧐
+### How to Use 🧐
 **Step 1)**
 
 Select the quantity of each food you would like:
