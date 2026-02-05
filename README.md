@@ -8,7 +8,7 @@
 
 [Webapp](https://xenon-height-425100-i6.et.r.appspot.com/) is now up! Care for some chicken rice?
 
-Edit: Partnership with Sing Soon Lee Chicken Rice hawker stall has ended. The website is still up for visiting, but please **do not** make any payments.
+`Edit: Partnership with Sing Soon Lee Chicken Rice hawker stall has ended. The website is still up for visiting, but please **do not** make any payments.`
 
 ## How to Use 🧐
 ### Step 1)
