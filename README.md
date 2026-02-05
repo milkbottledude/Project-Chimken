@@ -4,11 +4,11 @@
 
 - 🗪 Feel free to telegram me [@milkbottledude](https://t.me/milkbottledude) if you have any questions, or just want to chat :)
 
-> TLDR: A poor man's online ordering system webapp :)
+```TLDR: A poor man's online ordering system webapp :)```
 
 [Webapp](https://xenon-height-425100-i6.et.r.appspot.com/) is now up! Care for some chicken rice?
 
-`Edit: Partnership with Sing Soon Lee Chicken Rice hawker stall has ended. The website is still up for visiting, but please **do not** make any payments.`
+> **IMPORTANT**: Partnership with Sing Soon Lee Chicken Rice hawker stall has ended. The website is still up for visiting, but please **do not** make any payments!
 
 ## How to Use 🧐
 ### Step 1)
