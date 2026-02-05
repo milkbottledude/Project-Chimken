@@ -1,4 +1,4 @@
-# Project-Chimken
+# Project-Chimken 🐔
 
 ![banner here](progress_pics/Sing_Soon_Lee_Chicken_Rice_Cropped_Banner.png)
 
